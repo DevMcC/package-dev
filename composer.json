@@ -1,0 +1,29 @@
+{
+    "name": "devmcc/package-dev",
+    "description": "Makes developing composer packages easier.",
+    "keywords": [
+        "composer",
+        "packages",
+        "package-dev",
+        "packagedev",
+        "vendor",
+        "package development"
+    ],
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "DevMcC",
+            "email": "sinbox.c@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "DevMcC\\PackageDev\\": "src"
+        }
+    },
+    "bin": [
+        "bin/package-dev"
+    ]
+}
