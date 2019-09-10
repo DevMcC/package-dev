@@ -1,20 +1,25 @@
 #!/usr/bin/env php
 <?php
 
-if (!isset($argv[1])) {
-    echo "PackageDev is functioning properly.\n";
-    exit(0);
-}
+require_once(__DIR__ . '/../src/Core/Autoloading/autoload.php');
 
-$pdRoot = __DIR__.'/../src/';
-$appBase = getcwd().'/';
+use DevMcC\PackageDev\CommandArgument\ProcessArguments;
+use DevMcC\PackageDev\Core\Autoloading\DependencyInjection;
+use DevMcC\PackageDev\Core\CommandHandler;
+use DevMcC\PackageDev\Environment\OperatingSystem;
+use DevMcC\PackageDev\Environment\RootDirectory;
+use DevMcC\PackageDev\Exception\TerminateCommand;
 
-require_once($pdRoot.'Core/Main.php');
+$dependencyInjection = new DependencyInjection(
+    new ProcessArguments($argv),
+    new OperatingSystem(php_uname('s')),
+    new RootDirectory(getcwd())
+);
+$commandHandler = new CommandHandler(... $dependencyInjection->get(CommandHandler::class));
 
 try {
-    $main = new \DevMcC\PackageDev\Core\Main($appBase, $pdRoot);
-    $main->run();
-} catch (\Exception $e) {
+    $commandHandler->handle();
+} catch (TerminateCommand $e) {
     exit(1);
 }
 
