@@ -20,7 +20,7 @@ class OperatingSystem
         $supportedOsNames = [self::OS_NAME_WINDOWS, self::OS_NAME_LINUX, self::OS_NAME_MAC];
 
         if (!in_array($osName, $supportedOsNames)) {
-            throw new OperatingSystemNotSupported;
+            throw new OperatingSystemNotSupported($osName);
         }
 
         $this->osName = $osName;

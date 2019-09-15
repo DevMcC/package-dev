@@ -2,8 +2,9 @@
 
 namespace DevMcC\PackageDev\Command;
 
-use DevMcC\PackageDev\Core\Output;
 use DevMcC\PackageDev\CommandArgument\PackageArgument;
+use DevMcC\PackageDev\Core\Output;
+use DevMcC\PackageDev\Environment\Environment;
 
 class LinkCommand implements Command
 {
@@ -13,21 +14,28 @@ class LinkCommand implements Command
 
     /**
      * @var PackageArgument $packageArgument
+     * @var Environment $environment
      * @var Output $output
      */
     private $packageArgument;
+    private $environment;
     private $output;
 
     public function __construct(
         PackageArgument $packageArgument,
+        Environment $environment,
         Output $output
     ) {
         $this->packageArgument = $packageArgument;
+        $this->environment = $environment;
         $this->output = $output;
     }
 
     public function handle(): void
     {
-        $this->output->line($this->packageArgument->package());
+        $package = $this->packageArgument->package();
+
+        $this->environment->link($package);
+        $this->output->line(sprintf('Package "%s" has been linked', $package));
     }
 }

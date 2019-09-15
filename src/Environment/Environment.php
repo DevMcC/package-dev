@@ -2,69 +2,61 @@
 
 namespace DevMcC\PackageDev\Environment;
 
-use DevMcC\PackageDev\Exception\EnvironmentNotInitialized;
-use DevMcC\PackageDev\Exception\UnableToCreatePackagesDirectory;
-use DevMcC\PackageDev\Exception\UnableToCreatePackagesFile;
-use DevMcC\PackageDev\Exception\UnableToWriteToPackagesFile;
-
 class Environment
 {
-    private const PACKAGES_DIRECTORY_PATH = 'packages/';
-    private const PACKAGES_FILE_PATH = 'packages/package-dev.json';
 
     /**
-     * @var FileSystem $fileSystem
+     * @var PackageManagement $packageManagement
+     * @var PackagesFile $packagesFile
      */
-    private $fileSystem;
+    private $packageManagement;
+    private $packagesFile;
 
     public function __construct(
-        FileSystem $fileSystem
+        PackageManagement $packageManagement,
+        PackagesFile $packagesFile
     ) {
-        $this->fileSystem = $fileSystem;
-    }
-
-    /**
-     * @throws EnvironmentNotInitialized
-     */
-    public function throwIfNotInitialized(): void
-    {
-        if (!$this->isInitialized()) {
-            throw new EnvironmentNotInitialized;
-        }
+        $this->packageManagement = $packageManagement;
+        $this->packagesFile = $packagesFile;
     }
 
     public function initialize(): bool
     {
-        if ($this->isInitialized()) {
+        if ($this->packagesFile->isInitialized()) {
             return false;
         }
 
-        if (!$this->fileSystem->doesDirectoryExist(self::PACKAGES_DIRECTORY_PATH)) {
-            if (!$this->fileSystem->createDirectory(self::PACKAGES_DIRECTORY_PATH)) {
-                throw new UnableToCreatePackagesDirectory;
-            }
-        }
-
-        if (!$this->fileSystem->createFile(self::PACKAGES_FILE_PATH)) {
-            throw new UnableToCreatePackagesFile;
-        }
-
-        $this->writePackagesFile([]);
+        $this->packageManagement->initialize();
+        $this->packagesFile->initialize();
 
         return true;
     }
 
-    private function isInitialized(): bool
+    public function link(string $package): void
     {
-        return $this->fileSystem->doesFileExist(self::PACKAGES_FILE_PATH);
+        $this->packageManagement->validatePackage($package);
+        $this->packagesFile->addPackage($package);
+        $this->packageManagement->createSymlinkForPackage($package);
     }
 
-    private function writePackagesFile(array $packages): void
+    public function unlink(string $package): void
     {
-        $content = json_encode(['packages' => $packages], JSON_PRETTY_PRINT);
+        $this->packageManagement->validatePackage($package);
+        $this->packagesFile->removePackage($package);
+        $this->packageManagement->removeSymlinkFromPackage($package);
+    }
 
-        if (!$this->fileSystem->writeToFile(self::PACKAGES_FILE_PATH, $content)) {
-            throw new UnableToWriteToPackagesFile;
-        }
+    public function createSymlinks(): void
+    {
+        $this->packageManagement->createSymlinkForPackages(
+            $this->packagesFile->getPackages()
+        );
+    }
+
+    public function removeSymlinks(): void
+    {
+        $this->packageManagement->removeSymlinkFromPackages(
+            $this->packagesFile->getPackages()
+        );
     }
 }

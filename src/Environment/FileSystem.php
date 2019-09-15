@@ -19,6 +19,8 @@ class FileSystem
         $this->rootDirectory = $rootDirectory;
     }
 
+    // Exists.
+
     public function doesFileExist(string $file): bool
     {
         return is_file($this->path($file));
@@ -28,6 +30,13 @@ class FileSystem
     {
         return is_dir($this->path($directory));
     }
+
+    public function doesLinkExist(string $link): bool
+    {
+        return is_link($link);
+    }
+
+    // Create.
 
     public function createFile(string $file): bool
     {
@@ -39,10 +48,42 @@ class FileSystem
         return @mkdir($this->path($directory));
     }
 
+    // Read/Write.
+
+    public function readFromFile(string $file): ?string
+    {
+        $content = @file_get_contents($this->path($file));
+
+        return $content !== false ? $content : null;
+    }
+
     public function writeToFile(string $file, string $content): bool
     {
         return @file_put_contents($this->path($file), $content);
     }
+
+    // Delete.
+
+    public function deleteFile(string $file): bool
+    {
+        return @unlink($this->path($file));
+    }
+
+    // Move.
+
+    public function moveFileTo(string $file, string $to): bool
+    {
+        return @rename($file, $to);
+    }
+
+    // Link.
+
+    public function linkFileAs(string $file, string $link): bool
+    {
+        return @symlink($file, $this->path($link));
+    }
+
+    // Helpers.
 
     private function path(string $path): string
     {
