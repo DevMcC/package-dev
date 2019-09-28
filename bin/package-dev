@@ -12,7 +12,6 @@ use DevMcC\PackageDev\Exception\TerminateCommand;
 
 $dependencyInjection = new DependencyInjection(
     new ProcessArguments($argv),
-    new OperatingSystem(php_uname('s')),
     new RootDirectory(getcwd())
 );
 $commandHandler = new CommandHandler(... $dependencyInjection->get(CommandHandler::class));

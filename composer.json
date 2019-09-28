@@ -25,7 +25,15 @@
             "DevMcC\\PackageDev\\": "src"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "DevMcC\\PackageDev\\Test\\": "tests/Unit"
+        }
+    },
     "bin": [
         "bin/package-dev"
-    ]
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^7"
+    }
 }

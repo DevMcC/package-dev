@@ -3,7 +3,6 @@
 namespace DevMcC\PackageDev\Core\Autoloading;
 
 use DevMcC\PackageDev\CommandArgument\ProcessArguments;
-use DevMcC\PackageDev\Environment\OperatingSystem;
 use DevMcC\PackageDev\Environment\RootDirectory;
 use ReflectionMethod;
 
@@ -16,13 +15,21 @@ class DependencyInjection
 
     public function __construct(
         ProcessArguments $processArguments,
-        OperatingSystem $operatingSystem,
         RootDirectory $rootDirectory
     ) {
         $this->matchedDependencies[ProcessArguments::class] = $processArguments;
-        $this->matchedDependencies[OperatingSystem::class] = $operatingSystem;
         $this->matchedDependencies[RootDirectory::class] = $rootDirectory;
         $this->matchedDependencies[self::class] = $this;
+    }
+
+    /**
+     * @param string $class
+     *
+     * @return object
+     */
+    public function construct($class)
+    {
+        return new $class(... $this->get($class));
     }
 
     public function get(string $dependent): array

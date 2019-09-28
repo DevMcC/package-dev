@@ -5,17 +5,13 @@ namespace DevMcC\PackageDev\Environment;
 class FileSystem
 {
     /**
-     * @var OperatingSystem $operatingSystem
      * @var RootDirectory $rootDirectory
      */
-    private $operatingSystem;
     private $rootDirectory;
 
     public function __construct(
-        OperatingSystem $operatingSystem,
         RootDirectory $rootDirectory
     ) {
-        $this->operatingSystem = $operatingSystem;
         $this->rootDirectory = $rootDirectory;
     }
 

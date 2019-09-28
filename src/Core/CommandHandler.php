@@ -71,12 +71,12 @@ class CommandHandler
         $command = $this->processArguments->command();
 
         if (!$this->commandMapping->commandExists($command)) {
-            throw new CommandNotFound($this->processArguments->command());
+            throw new CommandNotFound($command);
         }
 
         $commandClassName = $this->commandMapping->getMapping()[$command];
 
-        return new $commandClassName(... $this->dependencyInjection->get($commandClassName));
+        return $this->dependencyInjection->construct($commandClassName);
     }
 
     private function outputUsage(): void

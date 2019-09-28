@@ -15,13 +15,13 @@ class CommandMapping
     public function getMapping(): array
     {
         return [
-            HelpCommand::COMMAND_NAME           => HelpCommand::class,
-            InitCommand::COMMAND_NAME           => InitCommand::class,
-            LinkCommand::COMMAND_NAME           => LinkCommand::class,
-            UnlinkCommand::COMMAND_NAME         => UnlinkCommand::class,
+            HelpCommand::COMMAND_NAME          => HelpCommand::class,
+            InitCommand::COMMAND_NAME          => InitCommand::class,
+            LinkCommand::COMMAND_NAME          => LinkCommand::class,
+            UnlinkCommand::COMMAND_NAME        => UnlinkCommand::class,
             SymlinkCreateCommand::COMMAND_NAME => SymlinkCreateCommand::class,
-            SymlinkRemoveCommand::COMMAND_NAME   => SymlinkRemoveCommand::class,
-            PharCommand::COMMAND_NAME           => PharCommand::class,
+            SymlinkRemoveCommand::COMMAND_NAME => SymlinkRemoveCommand::class,
+            PharCommand::COMMAND_NAME          => PharCommand::class,
         ];
     }
 
