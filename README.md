@@ -24,10 +24,16 @@
     * [x] src\Core\Output.php
     * [ ] src\Environment\Environment.php
     * [ ] src\Environment\FileSystem.php
-    * [ ] src\Environment\PackageManagement.php
+    * [x] src\Environment\PackageManagement.php
     * [ ] src\Environment\PackagesFile.php
     * [ ] src\Environment\RootDirectory.php
-    * intelephense errors
+    * [ ] src\Environment\UseCase\GetVendorPathFromPackage.php
+    * [ ] src\Environment\UseCase\CreateSymlinkForPackagePath.php
+    * [ ] src\Environment\UseCase\RemoveSymlinkFromPackagePath.php
+    * intelephense fix
+* [ ] restructure exceptions
+    * [ ] better message constants
+* [ ] stub prefix for shared values
 * [ ] phar
 * [ ] run in scripts
 * [ ] remaining unit tests
@@ -36,6 +42,7 @@
 * [ ] phpstan?
 * [ ] test on linux
 * [ ] configure for github
+* [ ] finish README
 
 # Tests
 After you have cloned the repo and installed all dependencies you can do the following:

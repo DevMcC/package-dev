@@ -3,14 +3,13 @@
 namespace DevMcC\PackageDev\Exception;
 
 use Exception;
-use Throwable;
 
 class PackageArgumentWasNotSupplied extends Exception
 {
-    private const DEFAULT_MESSAGE = 'Package argument was not supplied';
+    public const MESSAGE = 'Package argument was not supplied';
 
-    public function __construct(string $message = self::DEFAULT_MESSAGE, int $code = 0, Throwable $previous = null)
+    public function __construct()
     {
-        parent::__construct($message, $code, $previous);
+        parent::__construct(self::MESSAGE);
     }
 }

@@ -11,8 +11,8 @@ use PHPUnit\Framework\TestCase;
 class SymlinkCreateCommandTest extends TestCase
 {
     /**
-     * @var MockObject|Environment $environmentMock
-     * @var MockObject|Output $outputMock
+     * @var MockObject&Environment $environmentMock
+     * @var MockObject&Output $outputMock
      */
     private $environmentMock;
     private $outputMock;

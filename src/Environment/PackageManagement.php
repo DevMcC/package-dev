@@ -3,30 +3,34 @@
 namespace DevMcC\PackageDev\Environment;
 
 use DevMcC\PackageDev\Environment\FileSystem;
-use DevMcC\PackageDev\Exception\PackageNotFoundInPackages;
-use DevMcC\PackageDev\Exception\PackageNotFoundInVendor;
-use DevMcC\PackageDev\Exception\UnableToCreateBackupForPackage;
+use DevMcC\PackageDev\Environment\UseCase\CreateSymlinkForPackagePath;
+use DevMcC\PackageDev\Environment\UseCase\GetVendorPathFromPackage;
+use DevMcC\PackageDev\Environment\UseCase\RemoveSymlinkFromPackagePath;
 use DevMcC\PackageDev\Exception\UnableToCreatePackagesDirectory;
-use DevMcC\PackageDev\Exception\UnableToCreateSymlinkForPackage;
-use DevMcC\PackageDev\Exception\UnableToRemoveSymlinkFromPackage;
-use DevMcC\PackageDev\Exception\UnableToRestorePackage;
 
 class PackageManagement
 {
-    private const VENDOR_DIRECTORY_PATH = 'vendor/';
-    private const PACKAGES_DIRECTORY_PATH = 'packages/';
-    private const PACKAGE_BACKUP_SUFFIX = '_package-dev-bk';
-    private const PACKAGE_LINK_PREFIX = '../../packages/';
-
     /**
      * @var FileSystem $fileSystem
+     * @var GetVendorPathFromPackage $getVendorPathFromPackage
+     * @var CreateSymlinkForPackagePath $createSymlinkForPackagePath
+     * @var RemoveSymlinkFromPackagePath $removeSymlinkFromPackagePath
      */
     private $fileSystem;
+    private $getVendorPathFromPackage;
+    private $createSymlinkForPackagePath;
+    private $removeSymlinkFromPackagePath;
 
     public function __construct(
-        FileSystem $fileSystem
+        FileSystem $fileSystem,
+        GetVendorPathFromPackage $getVendorPathFromPackage,
+        CreateSymlinkForPackagePath $createSymlinkForPackagePath,
+        RemoveSymlinkFromPackagePath $removeSymlinkFromPackagePath
     ) {
         $this->fileSystem = $fileSystem;
+        $this->getVendorPathFromPackage = $getVendorPathFromPackage;
+        $this->createSymlinkForPackagePath = $createSymlinkForPackagePath;
+        $this->removeSymlinkFromPackagePath = $removeSymlinkFromPackagePath;
     }
 
     /**
@@ -34,8 +38,8 @@ class PackageManagement
      */
     public function initialize(): void
     {
-        if (!$this->fileSystem->doesDirectoryExist(self::PACKAGES_DIRECTORY_PATH)) {
-            if (!$this->fileSystem->createDirectory(self::PACKAGES_DIRECTORY_PATH)) {
+        if (!$this->fileSystem->doesDirectoryExist(Environment::PACKAGES_DIRECTORY_PATH)) {
+            if (!$this->fileSystem->createDirectory(Environment::PACKAGES_DIRECTORY_PATH)) {
                 throw new UnableToCreatePackagesDirectory;
             }
         }
@@ -43,7 +47,21 @@ class PackageManagement
 
     public function validatePackage(string $package): void
     {
-        $this->getVendorPathFromPackage($package);
+        $this->getVendorPathFromPackage->execute($package);
+    }
+
+    public function createSymlinkForPackage(string $package): void
+    {
+        $vendorPath = $this->getVendorPathFromPackage->execute($package);
+
+        $this->createSymlinkForPackagePath->execute($package, $vendorPath);
+    }
+
+    public function removeSymlinkFromPackage(string $package): void
+    {
+        $vendorPath = $this->getVendorPathFromPackage->execute($package);
+
+        $this->removeSymlinkFromPackagePath->execute($package, $vendorPath);
     }
 
     /**
@@ -64,76 +82,5 @@ class PackageManagement
         foreach ($packages as $package) {
             $this->removeSymlinkFromPackage($package);
         }
-    }
-
-    /**
-     * @throws UnableToCreateBackupForPackage
-     * @throws UnableToCreateSymlinkForPackage
-     */
-    public function createSymlinkForPackage(string $package): void
-    {
-        $vendorPath = $this->getVendorPathFromPackage($package);
-
-        if (
-            $this->fileSystem->doesDirectoryExist($vendorPath)
-            && !$this->fileSystem->doesLinkExist($vendorPath)
-            && !$this->fileSystem->moveFileTo($vendorPath, $vendorPath . self::PACKAGE_BACKUP_SUFFIX)
-        ) {
-            throw new UnableToCreateBackupForPackage($package);
-        }
-
-        if (
-            !$this->fileSystem->doesLinkExist($vendorPath)
-            && !$this->fileSystem->linkFileAs(self::PACKAGE_LINK_PREFIX . $package, $vendorPath)
-        ) {
-            throw new UnableToCreateSymlinkForPackage($package);
-        }
-    }
-
-    /**
-     * @throws UnableToRemoveSymlinkFromPackage
-     * @throws UnableToRestorePackage
-     */
-    public function removeSymlinkFromPackage(string $package): void
-    {
-        $vendorPath = $this->getVendorPathFromPackage($package);
-
-        if (
-            $this->fileSystem->doesLinkExist($vendorPath)
-            && !$this->fileSystem->deleteFile($vendorPath)
-        ) {
-            throw new UnableToRemoveSymlinkFromPackage($package);
-        }
-
-        if (
-            !$this->fileSystem->doesDirectoryExist($vendorPath)
-            && !$this->fileSystem->doesLinkExist($vendorPath)
-            && $this->fileSystem->doesDirectoryExist($vendorPath . self::PACKAGE_BACKUP_SUFFIX)
-            && !$this->fileSystem->moveFileTo($vendorPath . self::PACKAGE_BACKUP_SUFFIX, $vendorPath)
-        ) {
-            throw new UnableToRestorePackage($package);
-        }
-    }
-
-    /**
-     * @throws PackageNotFoundInPackages
-     * @throws PackageNotFoundInVendor
-     */
-    private function getVendorPathFromPackage(string $package): string
-    {
-        if (!$this->fileSystem->doesDirectoryExist(self::PACKAGES_DIRECTORY_PATH . $package)) {
-            throw new PackageNotFoundInPackages($package);
-        }
-
-        $vendorPath = self::VENDOR_DIRECTORY_PATH . $package;
-
-        if (
-            !$this->fileSystem->doesDirectoryExist($vendorPath)
-            && !$this->fileSystem->doesDirectoryExist($vendorPath . self::PACKAGE_BACKUP_SUFFIX)
-        ) {
-            throw new PackageNotFoundInVendor($package);
-        }
-
-        return $vendorPath;
     }
 }

@@ -12,9 +12,9 @@ use PHPUnit\Framework\TestCase;
 class UnlinkCommandTest extends TestCase
 {
     /**
-     * @var MockObject|PackageArgument $packageArgumentMock
-     * @var MockObject|Environment $environmentMock
-     * @var MockObject|Output $outputMock
+     * @var MockObject&PackageArgument $packageArgumentMock
+     * @var MockObject&Environment $environmentMock
+     * @var MockObject&Output $outputMock
      */
     private $packageArgumentMock;
     private $environmentMock;

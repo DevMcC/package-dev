@@ -3,16 +3,15 @@
 namespace DevMcC\PackageDev\Exception;
 
 use Exception;
-use Throwable;
 
 class CommandNotFound extends Exception
 {
-    public function __construct(string $message, int $code = 0, Throwable $previous = null)
+    public const MESSAGE_FORMAT = 'Command "%s" not found';
+
+    public function __construct(string $command)
     {
         parent::__construct(
-            sprintf('Command "%s" not found', $message),
-            $code,
-            $previous
+            sprintf(self::MESSAGE_FORMAT, $command)
         );
     }
 }

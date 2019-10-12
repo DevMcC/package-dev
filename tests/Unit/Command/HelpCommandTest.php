@@ -13,9 +13,9 @@ use PHPUnit\Framework\TestCase;
 class HelpCommandTest extends TestCase
 {
     /**
-     * @var MockObject|CommandOptionalArgument $commandOptionalArgumentMock
-     * @var MockObject|CommandMapping $commandMappingMock
-     * @var MockObject|Output $outputMock
+     * @var MockObject&CommandOptionalArgument $commandOptionalArgumentMock
+     * @var MockObject&CommandMapping $commandMappingMock
+     * @var MockObject&Output $outputMock
      */
     private $commandOptionalArgumentMock;
     private $commandMappingMock;

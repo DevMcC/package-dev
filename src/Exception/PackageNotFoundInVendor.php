@@ -3,16 +3,15 @@
 namespace DevMcC\PackageDev\Exception;
 
 use Exception;
-use Throwable;
 
 class PackageNotFoundInVendor extends Exception
 {
-    public function __construct(string $message, int $code = 0, Throwable $previous = null)
+    public const MESSAGE_FORMAT = 'Package "%s" was not found in the vendor directory';
+
+    public function __construct(string $package)
     {
         parent::__construct(
-            sprintf('Package "%s" was not found in the vendor directory', $message),
-            $code,
-            $previous
+            sprintf(self::MESSAGE_FORMAT, $package)
         );
     }
 }

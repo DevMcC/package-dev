@@ -18,10 +18,10 @@ use PHPUnit\Framework\TestCase;
 class CommandHandlerTest extends TestCase
 {
     /**
-     * @var MockObject|ProcessArguments $processArgumentsMock
-     * @var MockObject|CommandMapping $commandMappingMock
-     * @var MockObject|DependencyInjection $dependencyInjectionMock
-     * @var MockObject|Output $outputMock
+     * @var MockObject&ProcessArguments $processArgumentsMock
+     * @var MockObject&CommandMapping $commandMappingMock
+     * @var MockObject&DependencyInjection $dependencyInjectionMock
+     * @var MockObject&Output $outputMock
      */
     private $processArgumentsMock;
     private $commandMappingMock;

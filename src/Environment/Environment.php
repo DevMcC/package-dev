@@ -4,6 +4,13 @@ namespace DevMcC\PackageDev\Environment;
 
 class Environment
 {
+    public const PACKAGES_FILE_PATH = 'packages/package-dev.json';
+    public const PACKAGES_KEY = 'packages';
+
+    public const PACKAGES_DIRECTORY_PATH = 'packages/';
+    public const PACKAGE_BACKUP_SUFFIX = '_package-dev-bk';
+    public const PACKAGE_LINK_PREFIX = '../../packages/';
+    public const VENDOR_DIRECTORY_PATH = 'vendor/';
 
     /**
      * @var PackageManagement $packageManagement

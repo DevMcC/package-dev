@@ -9,9 +9,6 @@ use DevMcC\PackageDev\Exception\UnableToWriteToPackagesFile;
 
 class PackagesFile
 {
-    private const PACKAGES_FILE_PATH = 'packages/package-dev.json';
-    private const PACKAGES_KEY = 'packages';
-
     /**
      * @var FileSystem $fileSystem
      */
@@ -25,16 +22,19 @@ class PackagesFile
 
     public function isInitialized(): bool
     {
-        return $this->fileSystem->doesFileExist(self::PACKAGES_FILE_PATH);
+        return $this->fileSystem->doesFileExist(Environment::PACKAGES_FILE_PATH);
     }
 
+    /**
+     * @throws UnableToCreatePackagesFile
+     */
     public function initialize(): void
     {
         if ($this->isInitialized()) {
             return;
         }
 
-        if (!$this->fileSystem->createFile(self::PACKAGES_FILE_PATH)) {
+        if (!$this->fileSystem->createFile(Environment::PACKAGES_FILE_PATH)) {
             throw new UnableToCreatePackagesFile;
         }
 
@@ -56,6 +56,8 @@ class PackagesFile
 
     public function removePackage(string $package): void
     {
+        $this->validateInitialization();
+
         $packages = $this->read();
         $packageIndex = array_search($package, $packages);
 
@@ -77,7 +79,7 @@ class PackagesFile
     }
 
     /**
-     * @throws UnableToCreatePackagesFile
+     * @throws EnvironmentNotInitialized
      */
     private function validateInitialization(): void
     {
@@ -93,9 +95,9 @@ class PackagesFile
      */
     private function write(array $packages): void
     {
-        $content = json_encode([self::PACKAGES_KEY => $packages], JSON_PRETTY_PRINT);
+        $content = json_encode([Environment::PACKAGES_KEY => $packages], JSON_PRETTY_PRINT);
 
-        if (!$this->fileSystem->writeToFile(self::PACKAGES_FILE_PATH, $content)) {
+        if (!$this->fileSystem->writeToFile(Environment::PACKAGES_FILE_PATH, $content)) {
             throw new UnableToWriteToPackagesFile;
         }
     }
@@ -107,12 +109,12 @@ class PackagesFile
      */
     private function read(): array
     {
-        $content = $this->fileSystem->readFromFile(self::PACKAGES_FILE_PATH);
+        $content = $this->fileSystem->readFromFile(Environment::PACKAGES_FILE_PATH);
 
-        if (!$content) {
+        if (is_null($content)) {
             throw new UnableToReadFromPackagesFile;
         }
 
-        return json_decode($content, true)[self::PACKAGES_KEY];
+        return json_decode($content, true)[Environment::PACKAGES_KEY];
     }
 }
