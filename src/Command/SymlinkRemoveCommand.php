@@ -11,11 +11,9 @@ class SymlinkRemoveCommand implements Command
     public const COMMAND_USAGE = 'package-dev symlink-remove';
     public const COMMAND_DESCRIPTION = 'Removes the symlink from all linked packages.';
 
-    /**
-     * @var Environment $environment
-     * @var Output $output
-     */
+    /** @var Environment $environment */
     private $environment;
+    /** @var Output $output */
     private $output;
 
     public function __construct(

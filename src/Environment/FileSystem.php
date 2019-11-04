@@ -4,9 +4,7 @@ namespace DevMcC\PackageDev\Environment;
 
 class FileSystem
 {
-    /**
-     * @var RootDirectory $rootDirectory
-     */
+    /** @var RootDirectory $rootDirectory */
     private $rootDirectory;
 
     public function __construct(

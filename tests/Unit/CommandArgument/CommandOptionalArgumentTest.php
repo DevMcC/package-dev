@@ -11,11 +11,9 @@ use PHPUnit\Framework\TestCase;
 
 class CommandOptionalArgumentTest extends TestCase
 {
-    /**
-     * @var MockObject&CommandMapping $commandMappingMock
-     * @var MockObject&ProcessArguments $processArgumentsMock
-     */
+    /** @var MockObject&CommandMapping $commandMappingMock */
     private $commandMappingMock;
+    /** @var MockObject&ProcessArguments $processArgumentsMock */
     private $processArgumentsMock;
 
     protected function setUp(): void

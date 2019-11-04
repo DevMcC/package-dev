@@ -9,9 +9,7 @@ use DevMcC\PackageDev\Exception\UnableToRestorePackage;
 
 class RemoveSymlinkFromPackagePath
 {
-    /**
-     * @var FileSystem $fileSystem
-     */
+    /** @var FileSystem $fileSystem */
     private $fileSystem;
 
     public function __construct(
@@ -34,9 +32,7 @@ class RemoveSymlinkFromPackagePath
         }
 
         if (
-            !$this->fileSystem->doesDirectoryExist($vendorPath)
-            && !$this->fileSystem->doesLinkExist($vendorPath)
-            && $this->fileSystem->doesDirectoryExist($vendorPath . Environment::PACKAGE_BACKUP_SUFFIX)
+            $this->fileSystem->doesDirectoryExist($vendorPath . Environment::PACKAGE_BACKUP_SUFFIX)
             && !$this->fileSystem->moveFileTo($vendorPath . Environment::PACKAGE_BACKUP_SUFFIX, $vendorPath)
         ) {
             throw new UnableToRestorePackage($package);

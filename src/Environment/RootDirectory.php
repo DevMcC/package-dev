@@ -4,9 +4,7 @@ namespace DevMcC\PackageDev\Environment;
 
 class RootDirectory
 {
-    /**
-     * @var string $rootDirectory
-     */
+    /** @var string $rootDirectory */
     private $rootDirectory;
 
     public function __construct(string $rootDirectory)

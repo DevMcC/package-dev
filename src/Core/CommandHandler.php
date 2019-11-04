@@ -13,15 +13,13 @@ use Exception;
 
 class CommandHandler
 {
-    /**
-     * @var ProcessArguments $processArguments
-     * @var CommandMapping $commandMapping
-     * @var DependencyInjection $dependencyInjection
-     * @var Output $output
-     */
+    /** @var ProcessArguments $processArguments */
     private $processArguments;
+    /** @var CommandMapping $commandMapping */
     private $commandMapping;
+    /** @var DependencyInjection $dependencyInjection */
     private $dependencyInjection;
+    /** @var Output $output */
     private $output;
 
     public function __construct(
@@ -62,7 +60,7 @@ class CommandHandler
      * @throws CommandWasNotSupplied
      * @throws CommandNotFound
      */
-    private function getCommand(): ?Command
+    private function getCommand(): Command
     {
         if ($this->processArguments->commandWasNotSupplied()) {
             throw new CommandWasNotSupplied;
@@ -76,7 +74,7 @@ class CommandHandler
 
         $commandClassName = $this->commandMapping->getMapping()[$command];
 
-        return $this->dependencyInjection->construct($commandClassName);
+        return $this->dependencyInjection->resolveClass($commandClassName);
     }
 
     private function outputUsage(): void

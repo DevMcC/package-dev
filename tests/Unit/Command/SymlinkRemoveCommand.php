@@ -10,16 +10,12 @@ use PHPUnit\Framework\TestCase;
 
 class SymlinkRemoveCommandTest extends TestCase
 {
-    /**
-     * @var MockObject&Environment $environmentMock
-     * @var MockObject&Output $outputMock
-     */
+    /** @var MockObject&Environment $environmentMock */
     private $environmentMock;
+    /** @var MockObject&Output $outputMock */
     private $outputMock;
 
-    /**
-     * @var SymlinkRemoveCommand $command
-     */
+    /** @var SymlinkRemoveCommand $command */
     private $command;
 
     protected function setUp(): void

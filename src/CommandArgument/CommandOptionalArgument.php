@@ -8,9 +8,7 @@ use DevMcC\PackageDev\Exception\CommandNotFound;
 
 class CommandOptionalArgument
 {
-    /**
-     * @var string
-     */
+    /** @var string $command */
     private $command;
 
     /**

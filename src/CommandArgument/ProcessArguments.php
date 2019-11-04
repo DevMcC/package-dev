@@ -4,11 +4,9 @@ namespace DevMcC\PackageDev\CommandArgument;
 
 class ProcessArguments
 {
-    /**
-     * @var string $command
-     * @var string $argument
-     */
+    /** @var string $command */
     private $command;
+    /** @var string $argument */
     private $argument;
 
     public function __construct(array $arguments)

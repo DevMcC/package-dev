@@ -14,9 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class CommandMappingTest extends TestCase
 {
-    /**
-     * @var CommandMapping $commandMapping
-     */
+    /** @var CommandMapping $commandMapping */
     private $commandMapping;
 
     protected function setUp(): void

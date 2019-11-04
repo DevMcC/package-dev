@@ -8,18 +8,16 @@ use ReflectionMethod;
 
 class DependencyInjection
 {
-    /**
-     * @var array $matchedDependencies
-     */
+    /** @var array $matchedDependencies */
     private $matchedDependencies = [];
 
     public function __construct(
         ProcessArguments $processArguments,
         RootDirectory $rootDirectory
     ) {
+        $this->matchedDependencies[self::class] = $this;
         $this->matchedDependencies[ProcessArguments::class] = $processArguments;
         $this->matchedDependencies[RootDirectory::class] = $rootDirectory;
-        $this->matchedDependencies[self::class] = $this;
     }
 
     /**
@@ -27,12 +25,12 @@ class DependencyInjection
      *
      * @return object
      */
-    public function construct($class)
+    public function resolveClass($class)
     {
-        return new $class(... $this->get($class));
+        return new $class(... $this->resolveDependencies($class));
     }
 
-    public function get(string $dependent): array
+    public function resolveDependencies(string $dependent): array
     {
         if (!method_exists($dependent, '__construct')) {
             return [];
@@ -57,12 +55,12 @@ class DependencyInjection
      */
     private function getDependency(string $className)
     {
-        $depency = $this->matchedDependencies[$className] ?? null;
+        $dependency = $this->matchedDependencies[$className] ?? null;
 
-        if (!$depency) {
-            $depency = $this->matchedDependencies[$className] = new $className(... $this->get($className));
+        if (!$dependency) {
+            $dependency = $this->matchedDependencies[$className] = $this->resolveClass($className);
         }
 
-        return $depency;
+        return $dependency;
     }
 }

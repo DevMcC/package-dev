@@ -11,11 +11,9 @@ class InitCommand implements Command
     public const COMMAND_USAGE = 'package-dev init';
     public const COMMAND_DESCRIPTION = 'Initializes the PackageDev environment.';
 
-    /**
-     * @var Environment $environment
-     * @var Output $output
-     */
+    /** @var Environment $environment */
     private $environment;
+    /** @var Output $output */
     private $output;
 
     public function __construct(

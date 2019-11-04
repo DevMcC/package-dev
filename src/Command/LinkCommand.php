@@ -12,13 +12,11 @@ class LinkCommand implements Command
     public const COMMAND_USAGE = 'package-dev link [package]';
     public const COMMAND_DESCRIPTION = 'Links a package to the PackageDev environment.';
 
-    /**
-     * @var PackageArgument $packageArgument
-     * @var Environment $environment
-     * @var Output $output
-     */
+    /** @var PackageArgument $packageArgument */
     private $packageArgument;
+    /** @var Environment $environment */
     private $environment;
+    /** @var Output $output */
     private $output;
 
     public function __construct(

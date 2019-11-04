@@ -10,15 +10,13 @@ use DevMcC\PackageDev\Exception\UnableToCreatePackagesDirectory;
 
 class PackageManagement
 {
-    /**
-     * @var FileSystem $fileSystem
-     * @var GetVendorPathFromPackage $getVendorPathFromPackage
-     * @var CreateSymlinkForPackagePath $createSymlinkForPackagePath
-     * @var RemoveSymlinkFromPackagePath $removeSymlinkFromPackagePath
-     */
+    /** @var FileSystem $fileSystem */
     private $fileSystem;
+    /** @var GetVendorPathFromPackage $getVendorPathFromPackage */
     private $getVendorPathFromPackage;
+    /** @var CreateSymlinkForPackagePath $createSymlinkForPackagePath */
     private $createSymlinkForPackagePath;
+    /** @var RemoveSymlinkFromPackagePath $removeSymlinkFromPackagePath */
     private $removeSymlinkFromPackagePath;
 
     public function __construct(

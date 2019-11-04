@@ -12,13 +12,11 @@ class HelpCommand implements Command
     public const COMMAND_USAGE = 'package-dev help [command]';
     public const COMMAND_DESCRIPTION = 'Displays help for a command.';
 
-    /**
-     * @var CommandOptionalArgument $commandOptionalArgument
-     * @var CommandMapping $commandMapping
-     * @var Output $output
-     */
+    /** @var CommandOptionalArgument $commandOptionalArgument */
     private $commandOptionalArgument;
+    /** @var CommandMapping $commandMapping */
     private $commandMapping;
+    /** @var Output $output */
     private $output;
 
     public function __construct(

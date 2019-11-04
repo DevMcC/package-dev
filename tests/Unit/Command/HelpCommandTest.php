@@ -12,18 +12,14 @@ use PHPUnit\Framework\TestCase;
 
 class HelpCommandTest extends TestCase
 {
-    /**
-     * @var MockObject&CommandOptionalArgument $commandOptionalArgumentMock
-     * @var MockObject&CommandMapping $commandMappingMock
-     * @var MockObject&Output $outputMock
-     */
+    /** @var MockObject&CommandOptionalArgument $commandOptionalArgumentMock */
     private $commandOptionalArgumentMock;
+    /** @var MockObject&CommandMapping $commandMappingMock */
     private $commandMappingMock;
+    /** @var MockObject&Output $outputMock */
     private $outputMock;
 
-    /**
-     * @var HelpCommand $command
-     */
+    /** @var HelpCommand $command */
     private $command;
 
     protected function setUp(): void

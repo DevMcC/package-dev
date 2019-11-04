@@ -22,15 +22,16 @@
     * [ ] src\Core\Autoloading\DependencyInjection.php
     * [x] src\Core\CommandHandler.php
     * [x] src\Core\Output.php
-    * [ ] src\Environment\Environment.php
+    * [x] src\Environment\Environment.php
     * [ ] src\Environment\FileSystem.php
     * [x] src\Environment\PackageManagement.php
-    * [ ] src\Environment\PackagesFile.php
-    * [ ] src\Environment\RootDirectory.php
-    * [ ] src\Environment\UseCase\GetVendorPathFromPackage.php
-    * [ ] src\Environment\UseCase\CreateSymlinkForPackagePath.php
-    * [ ] src\Environment\UseCase\RemoveSymlinkFromPackagePath.php
-    * intelephense fix
+    * [x] src\Environment\PackagesFile.php
+    * [x] src\Environment\RootDirectory.php
+    * [x] src\Environment\UseCase\GetVendorPathFromPackage.php
+    * [x] src\Environment\UseCase\CreateSymlinkForPackagePath.php
+    * [x] src\Environment\UseCase\RemoveSymlinkFromPackagePath.php
+* [ ] unit test intelephense fix
+* [x] @var
 * [ ] restructure exceptions
     * [ ] better message constants
 * [ ] stub prefix for shared values
@@ -38,8 +39,10 @@
 * [ ] run in scripts
 * [ ] remaining unit tests
     * [ ] phar command
-* [ ] check code coverage
-* [ ] phpstan?
+* [ ] other
+    * [ ] phpstan
+    * [ ] code coverage
+    * [ ] integration test
 * [ ] test on linux
 * [ ] configure for github
 * [ ] finish README

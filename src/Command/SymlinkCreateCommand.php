@@ -11,11 +11,9 @@ class SymlinkCreateCommand implements Command
     public const COMMAND_USAGE = 'package-dev symlink-create';
     public const COMMAND_DESCRIPTION = 'Creates a symlink for all linked packages.';
 
-    /**
-     * @var Environment $environment
-     * @var Output $output
-     */
+    /** @var Environment $environment */
     private $environment;
+    /** @var Output $output */
     private $output;
 
     public function __construct(

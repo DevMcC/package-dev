@@ -14,14 +14,10 @@ use PHPUnit\Framework\TestCase;
 
 class PackagesFileTest extends TestCase
 {
-    /**
-     * @var MockObject&FileSystem $fileSystemMock
-     */
+    /** @var MockObject&FileSystem $fileSystemMock */
     private $fileSystemMock;
 
-    /**
-     * @var PackagesFile $packagesFile
-     */
+    /** @var PackagesFile $packagesFile */
     private $packagesFile;
 
     protected function setUp(): void

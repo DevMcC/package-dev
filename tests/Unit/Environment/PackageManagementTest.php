@@ -20,20 +20,16 @@ use PHPUnit\Framework\TestCase;
 
 class PackageManagementTest extends TestCase
 {
-    /**
-     * @var MockObject&FileSystem $fileSystemMock
-     * @var MockObject&GetVendorPathFromPackage $getVendorPathFromPackageMock
-     * @var MockObject&CreateSymlinkForPackagePath $createSymlinkForPackagePathMock
-     * @var MockObject&RemoveSymlinkFromPackagePath $removeSymlinkFromPackagePathMock
-     */
+    /** @var MockObject&FileSystem $fileSystemMock */
     private $fileSystemMock;
+    /** @var MockObject&GetVendorPathFromPackage $getVendorPathFromPackageMock */
     private $getVendorPathFromPackageMock;
+    /** @var MockObject&CreateSymlinkForPackagePath $createSymlinkForPackagePathMock */
     private $createSymlinkForPackagePathMock;
+    /** @var MockObject&RemoveSymlinkFromPackagePath $removeSymlinkFromPackagePathMock */
     private $removeSymlinkFromPackagePathMock;
 
-    /**
-     * @var PackageManagement $packageManagement
-     */
+    /** @var PackageManagement $packageManagement */
     private $packageManagement;
 
     protected function setUp(): void

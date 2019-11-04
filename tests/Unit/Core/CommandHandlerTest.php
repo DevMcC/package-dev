@@ -17,20 +17,16 @@ use PHPUnit\Framework\TestCase;
 
 class CommandHandlerTest extends TestCase
 {
-    /**
-     * @var MockObject&ProcessArguments $processArgumentsMock
-     * @var MockObject&CommandMapping $commandMappingMock
-     * @var MockObject&DependencyInjection $dependencyInjectionMock
-     * @var MockObject&Output $outputMock
-     */
+    /** @var MockObject&ProcessArguments $processArgumentsMock */
     private $processArgumentsMock;
+    /** @var MockObject&CommandMapping $commandMappingMock */
     private $commandMappingMock;
+    /** @var MockObject&DependencyInjection $dependencyInjectionMock */
     private $dependencyInjectionMock;
+    /** @var MockObject&Output $outputMock */
     private $outputMock;
 
-    /**
-     * @var CommandHandler $commandHandler
-     */
+    /** @var CommandHandler $commandHandler */
     private $commandHandler;
 
     protected function setUp(): void
@@ -82,7 +78,7 @@ class CommandHandlerTest extends TestCase
         // Assertion.
         $this->dependencyInjectionMock
             ->expects($this->once())
-            ->method('construct')
+            ->method('resolveClass')
             ->with($commandClassName)
             ->willReturn($command);
 
@@ -141,7 +137,7 @@ class CommandHandlerTest extends TestCase
         // Assertions.
         $this->processArgumentsMock->expects($this->never())->method('command');
         $this->commandMappingMock->expects($this->never())->method('commandExists');
-        $this->dependencyInjectionMock->expects($this->never())->method('construct');
+        $this->dependencyInjectionMock->expects($this->never())->method('resolveClass');
 
         // Starting test.
         $this->commandHandler->handle();
@@ -181,7 +177,7 @@ class CommandHandlerTest extends TestCase
 
         // Assertions.
         $this->commandMappingMock->expects($this->never())->method('getMapping');
-        $this->dependencyInjectionMock->expects($this->never())->method('construct');
+        $this->dependencyInjectionMock->expects($this->never())->method('resolveClass');
         $this->outputMock->expects($this->never())->method('list');
 
         // Starting test.
@@ -222,7 +218,7 @@ class CommandHandlerTest extends TestCase
         // Assertion.
         $this->dependencyInjectionMock
             ->expects($this->once())
-            ->method('construct')
+            ->method('resolveClass')
             ->with($commandClassName)
             ->willReturn($command);
 

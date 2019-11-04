@@ -9,9 +9,7 @@ use DevMcC\PackageDev\Exception\PackageNotFoundInVendor;
 
 class GetVendorPathFromPackage
 {
-    /**
-     * @var FileSystem $fileSystem
-     */
+    /** @var FileSystem $fileSystem */
     private $fileSystem;
 
     public function __construct(
@@ -30,7 +28,7 @@ class GetVendorPathFromPackage
             throw new PackageNotFoundInPackages($package);
         }
 
-        $vendorPath = self::VENDOR_DIRECTORY_PATH . $package;
+        $vendorPath = Environment::VENDOR_DIRECTORY_PATH . $package;
 
         if (
             !$this->fileSystem->doesDirectoryExist($vendorPath)

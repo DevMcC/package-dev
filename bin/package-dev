@@ -6,7 +6,6 @@ require_once(__DIR__ . '/../src/Core/Autoloading/autoload.php');
 use DevMcC\PackageDev\CommandArgument\ProcessArguments;
 use DevMcC\PackageDev\Core\Autoloading\DependencyInjection;
 use DevMcC\PackageDev\Core\CommandHandler;
-use DevMcC\PackageDev\Environment\OperatingSystem;
 use DevMcC\PackageDev\Environment\RootDirectory;
 use DevMcC\PackageDev\Exception\TerminateCommand;
 
@@ -14,7 +13,11 @@ $dependencyInjection = new DependencyInjection(
     new ProcessArguments($argv),
     new RootDirectory(getcwd())
 );
-$commandHandler = new CommandHandler(... $dependencyInjection->get(CommandHandler::class));
+
+/**
+ * @var CommandHandler $commandHandler
+ */
+$commandHandler = $dependencyInjection->resolveClass(CommandHandler::class);
 
 try {
     $commandHandler->handle();

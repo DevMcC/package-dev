@@ -7,9 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class OutputTest extends TestCase
 {
-    /**
-     * @var Output $output
-     */
+    /** @var Output $output */
     private $output;
 
     protected function setUp(): void

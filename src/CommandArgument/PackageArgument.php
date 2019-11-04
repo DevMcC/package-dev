@@ -9,9 +9,7 @@ class PackageArgument
 {
     private const PATTERN_PACKAGE_NAME = '/^[0-9a-z-]+\/[0-9a-z-]+$/';
 
-    /**
-     * @var string
-     */
+    /** @var string $package */
     private $package;
 
     /**

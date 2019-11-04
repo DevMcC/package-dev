@@ -9,9 +9,7 @@ use DevMcC\PackageDev\Exception\UnableToWriteToPackagesFile;
 
 class PackagesFile
 {
-    /**
-     * @var FileSystem $fileSystem
-     */
+    /** @var FileSystem $fileSystem */
     private $fileSystem;
 
     public function __construct(

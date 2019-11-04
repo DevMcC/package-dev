@@ -12,13 +12,11 @@ class UnlinkCommand implements Command
     public const COMMAND_USAGE = 'package-dev unlink [package]';
     public const COMMAND_DESCRIPTION = 'Unlinks a package from the PackageDev environment.';
 
-    /**
-     * @var PackageArgument $packageArgument
-     * @var Environment $environment
-     * @var Output $output
-     */
+    /** @var PackageArgument $packageArgument */
     private $packageArgument;
+    /** @var Environment $environment */
     private $environment;
+    /** @var Output $output */
     private $output;
 
     public function __construct(

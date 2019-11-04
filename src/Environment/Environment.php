@@ -12,11 +12,9 @@ class Environment
     public const PACKAGE_LINK_PREFIX = '../../packages/';
     public const VENDOR_DIRECTORY_PATH = 'vendor/';
 
-    /**
-     * @var PackageManagement $packageManagement
-     * @var PackagesFile $packagesFile
-     */
+    /** @var PackageManagement $packageManagement */
     private $packageManagement;
+    /** @var PackagesFile $packagesFile */
     private $packagesFile;
 
     public function __construct(
