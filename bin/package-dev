@@ -17,7 +17,7 @@ $dependencyInjection = new DependencyInjection(
 /**
  * @var CommandHandler $commandHandler
  */
-$commandHandler = $dependencyInjection->resolveClass(CommandHandler::class);
+$commandHandler = $dependencyInjection->resolveClassName(CommandHandler::class);
 
 try {
     $commandHandler->handle();

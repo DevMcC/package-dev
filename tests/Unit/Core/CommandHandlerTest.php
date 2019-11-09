@@ -78,7 +78,7 @@ class CommandHandlerTest extends TestCase
         // Assertion.
         $this->dependencyInjectionMock
             ->expects($this->once())
-            ->method('resolveClass')
+            ->method('resolveClassName')
             ->with($commandClassName)
             ->willReturn($command);
 
@@ -137,7 +137,7 @@ class CommandHandlerTest extends TestCase
         // Assertions.
         $this->processArgumentsMock->expects($this->never())->method('command');
         $this->commandMappingMock->expects($this->never())->method('commandExists');
-        $this->dependencyInjectionMock->expects($this->never())->method('resolveClass');
+        $this->dependencyInjectionMock->expects($this->never())->method('resolveClassName');
 
         // Starting test.
         $this->commandHandler->handle();
@@ -177,7 +177,7 @@ class CommandHandlerTest extends TestCase
 
         // Assertions.
         $this->commandMappingMock->expects($this->never())->method('getMapping');
-        $this->dependencyInjectionMock->expects($this->never())->method('resolveClass');
+        $this->dependencyInjectionMock->expects($this->never())->method('resolveClassName');
         $this->outputMock->expects($this->never())->method('list');
 
         // Starting test.
@@ -218,7 +218,7 @@ class CommandHandlerTest extends TestCase
         // Assertion.
         $this->dependencyInjectionMock
             ->expects($this->once())
-            ->method('resolveClass')
+            ->method('resolveClassName')
             ->with($commandClassName)
             ->willReturn($command);
 

@@ -19,7 +19,7 @@
     * [x] src\CommandArgument\ProcessArguments.php
     * [x] src\Config\CommandMapping.php
     * [ ] src\Core\Autoloading\ClassLoader.php
-    * [ ] src\Core\Autoloading\DependencyInjection.php
+    * [x] src\Core\Autoloading\DependencyInjection.php
     * [x] src\Core\CommandHandler.php
     * [x] src\Core\Output.php
     * [x] src\Environment\Environment.php
@@ -30,16 +30,16 @@
     * [x] src\Environment\UseCase\GetVendorPathFromPackage.php
     * [x] src\Environment\UseCase\CreateSymlinkForPackagePath.php
     * [x] src\Environment\UseCase\RemoveSymlinkFromPackagePath.php
-* [ ] unit test intelephense fix
 * [x] @var
+* [ ] better namespace for tests
 * [ ] restructure exceptions
     * [ ] better message constants
 * [ ] stub prefix for shared values
 * [ ] phar
-* [ ] run in scripts
-* [ ] remaining unit tests
-    * [ ] phar command
+    * [ ] run in scripts
+    * [ ] unit test
 * [ ] other
+    * [ ] unit test intelephense fix
     * [ ] phpstan
     * [ ] code coverage
     * [ ] integration test

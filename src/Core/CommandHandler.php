@@ -74,7 +74,7 @@ class CommandHandler
 
         $commandClassName = $this->commandMapping->getMapping()[$command];
 
-        return $this->dependencyInjection->resolveClass($commandClassName);
+        return $this->dependencyInjection->resolveClassName($commandClassName);
     }
 
     private function outputUsage(): void

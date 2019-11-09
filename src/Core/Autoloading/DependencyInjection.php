@@ -8,59 +8,51 @@ use ReflectionMethod;
 
 class DependencyInjection
 {
-    /** @var array $matchedDependencies */
-    private $matchedDependencies = [];
+    /** @var array $resolvedClassNames */
+    private $resolvedClassNames = [];
 
     public function __construct(
         ProcessArguments $processArguments,
         RootDirectory $rootDirectory
     ) {
-        $this->matchedDependencies[self::class] = $this;
-        $this->matchedDependencies[ProcessArguments::class] = $processArguments;
-        $this->matchedDependencies[RootDirectory::class] = $rootDirectory;
+        $this->resolvedClassNames[self::class] = $this;
+        $this->resolvedClassNames[ProcessArguments::class] = $processArguments;
+        $this->resolvedClassNames[RootDirectory::class] = $rootDirectory;
     }
 
     /**
-     * @param string $class
-     *
      * @return object
      */
-    public function resolveClass($class)
+    public function resolveClassName(string $className)
     {
-        return new $class(... $this->resolveDependencies($class));
+        $resolvedClassName = $this->resolvedClassNames[$className] ?? null;
+
+        if (!$resolvedClassName) {
+            $resolvedClassName = new $className(... $this->resolveDependencyTree($className));
+            $this->resolvedClassNames[$className] = $resolvedClassName;
+        }
+
+        return $resolvedClassName;
     }
 
-    public function resolveDependencies(string $dependent): array
+    private function resolveDependencyTree(string $className): array
     {
-        if (!method_exists($dependent, '__construct')) {
+        if (!method_exists($className, '__construct')) {
             return [];
         }
 
-        $dependencies = [];
-        $parameters = (new ReflectionMethod($dependent, '__construct'))->getParameters();
+        $parameters = (new ReflectionMethod($className, '__construct'))->getParameters();
 
         if (!$parameters) {
             return [];
         }
 
+        $dependencies = [];
+
         foreach ($parameters as $parameter) {
-            $dependencies[] = $this->getDependency($parameter->getClass()->name);
+            $dependencies[] = $this->resolveClassName($parameter->getClass()->name);
         }
 
         return $dependencies;
-    }
-
-    /**
-     * @return object
-     */
-    private function getDependency(string $className)
-    {
-        $dependency = $this->matchedDependencies[$className] ?? null;
-
-        if (!$dependency) {
-            $dependency = $this->matchedDependencies[$className] = $this->resolveClass($className);
-        }
-
-        return $dependency;
     }
 }
