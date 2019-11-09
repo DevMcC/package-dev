@@ -71,7 +71,15 @@ class DependencyInjectionTest extends TestCase
         $this->assertSame($this->$builtInMockName, $result);
     }
 
-    // public function testResolveClassNameWillCacheResolvedClassNames
+    public function testResolveClassNameWillCacheResolvedClassNames(): void
+    {
+        // Starting test.
+        $firstResolve = $this->di->resolveClassName(DIStubTreeA::class);
+        $secondResolve = $this->di->resolveClassName(DIStubTreeA::class);
+
+        // Assertion.
+        $this->assertTrue($firstResolve === $secondResolve, 'Failed asserting that the same object was resolved.');
+    }
 
     public function builtInClassesDataProvider(): array
     {
