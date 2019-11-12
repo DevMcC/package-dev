@@ -18,7 +18,7 @@
     * [x] src\CommandArgument\PackageArgument.php
     * [x] src\CommandArgument\ProcessArguments.php
     * [x] src\Config\CommandMapping.php
-    * [ ] src\Core\Autoloading\ClassLoader.php
+    * [x] src\Core\Autoloading\ClassLoader.php
     * [x] src\Core\Autoloading\DependencyInjection.php
     * [x] src\Core\CommandHandler.php
     * [x] src\Core\Output.php
