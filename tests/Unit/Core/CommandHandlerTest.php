@@ -46,9 +46,9 @@ class CommandHandlerTest extends TestCase
 
     public function testHandle(): void
     {
-        $commandName = 'test123';
-        $commandClassName = CommandHandlerTestCommand::class;
-        $command = $this->createMock(Command::class);
+        $stubCommandName = 'test123';
+        $stubCommandClassName = CommandHandlerTestCommand::class;
+        $commandMock = $this->createMock(Command::class);
 
         // Assertion.
         $this->processArgumentsMock
@@ -60,30 +60,30 @@ class CommandHandlerTest extends TestCase
         $this->processArgumentsMock
             ->expects($this->once())
             ->method('command')
-            ->willReturn($commandName);
+            ->willReturn($stubCommandName);
 
         // Assertion.
         $this->commandMappingMock
             ->expects($this->once())
             ->method('commandExists')
-            ->with($commandName)
+            ->with($stubCommandName)
             ->willReturn(true);
 
         // Assertion.
         $this->commandMappingMock
             ->expects($this->once())
             ->method('getMapping')
-            ->willReturn([$commandName => $commandClassName]);
+            ->willReturn([$stubCommandName => $stubCommandClassName]);
 
         // Assertion.
         $this->dependencyInjectionMock
             ->expects($this->once())
             ->method('resolveClassName')
-            ->with($commandClassName)
-            ->willReturn($command);
+            ->with($stubCommandClassName)
+            ->willReturn($commandMock);
 
         // Assertion.
-        $command->expects($this->once())->method('handle');
+        $commandMock->expects($this->once())->method('handle');
 
         // Assertions.
         $this->outputMock->expects($this->never())->method('line');
@@ -95,7 +95,7 @@ class CommandHandlerTest extends TestCase
 
     public function testHandleWhenCommandWasNotSupplied(): void
     {
-        $commandMapping = [
+        $stubCommandMapping = [
             HelpCommand::COMMAND_NAME => HelpCommand::class,
             InitCommand::COMMAND_NAME => InitCommand::class
         ];
@@ -123,7 +123,7 @@ class CommandHandlerTest extends TestCase
         $this->commandMappingMock
             ->expects($this->exactly(3))
             ->method('getMapping')
-            ->willReturn($commandMapping);
+            ->willReturn($stubCommandMapping);
 
         // Assertion.
         $this->outputMock
@@ -145,7 +145,7 @@ class CommandHandlerTest extends TestCase
 
     public function testHandleWhenCommandNotFoundThrowsTerminateCommand(): void
     {
-        $commandName = 'test123';
+        $stubCommandName = 'test123';
 
         // Assertion.
         $this->processArgumentsMock
@@ -157,13 +157,13 @@ class CommandHandlerTest extends TestCase
         $this->processArgumentsMock
             ->expects($this->once())
             ->method('command')
-            ->willReturn($commandName);
+            ->willReturn($stubCommandName);
 
         // Assertion.
         $this->commandMappingMock
             ->expects($this->once())
             ->method('commandExists')
-            ->with($commandName)
+            ->with($stubCommandName)
             ->willReturn(false);
 
         // Assertion.
@@ -186,10 +186,10 @@ class CommandHandlerTest extends TestCase
 
     public function testHandleWhenExceptionThrowsTerminateCommand(): void
     {
-        $commandName = 'test123';
-        $commandClassName = CommandHandlerTestCommand::class;
-        $command = $this->createMock(Command::class);
+        $stubCommandName = 'test123';
+        $stubCommandClassName = CommandHandlerTestCommand::class;
         $stubException = new Exception('test good');
+        $commandMock = $this->createMock(Command::class);
 
         // Assertion.
         $this->processArgumentsMock
@@ -201,30 +201,30 @@ class CommandHandlerTest extends TestCase
         $this->processArgumentsMock
             ->expects($this->once())
             ->method('command')
-            ->willReturn($commandName);
+            ->willReturn($stubCommandName);
 
         // Assertion.
         $this->commandMappingMock
             ->expects($this->once())
             ->method('commandExists')
-            ->with($commandName)
+            ->with($stubCommandName)
             ->willReturn(true);
 
         // Assertion.
         $this->commandMappingMock
             ->expects($this->once())
             ->method('getMapping')
-            ->willReturn([$commandName => $commandClassName]);
+            ->willReturn([$stubCommandName => $stubCommandClassName]);
 
         // Assertion.
         $this->dependencyInjectionMock
             ->expects($this->once())
             ->method('resolveClassName')
-            ->with($commandClassName)
-            ->willReturn($command);
+            ->with($stubCommandClassName)
+            ->willReturn($commandMock);
 
         // Assertion.
-        $command
+        $commandMock
             ->expects($this->once())
             ->method('handle')
             ->willThrowException($stubException);

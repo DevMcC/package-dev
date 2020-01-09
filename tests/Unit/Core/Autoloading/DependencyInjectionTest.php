@@ -62,13 +62,13 @@ class DependencyInjectionTest extends TestCase
      */
     public function testResolveClassNameWithBuiltInClasses(
         string $stubClassName,
-        string $builtInMockName
+        string $stubBuiltInMockName
     ): void {
         // Starting test.
         $result = $this->di->resolveClassName($stubClassName);
 
         // Assertion.
-        $this->assertSame($this->$builtInMockName, $result);
+        $this->assertSame($this->$stubBuiltInMockName, $result);
     }
 
     public function testResolveClassNameWillCacheResolvedClassNames(): void

@@ -24,27 +24,27 @@ class CommandMappingTest extends TestCase
 
     public function testGetMapping(): void
     {
-        $commands = [];
+        $stubCommands = [];
 
-        foreach ($this->commands() as $command) {
-            $commands[$command::COMMAND_NAME] = $command;
+        foreach ($this->commands() as $stubCommand) {
+            $stubCommands[$stubCommand::COMMAND_NAME] = $stubCommand;
         }
 
         // Starting test.
         $result = $this->commandMapping->getMapping();
 
         // Assertion.
-        $this->assertCount(count($commands), $result);
-        $this->assertSame($commands, $result);
+        $this->assertCount(count($stubCommands), $result);
+        $this->assertSame($stubCommands, $result);
     }
 
     /**
      * @dataProvider existingCommandsDataProvider
      */
-    public function testCommandExists(string $command): void
+    public function testCommandExists(string $stubCommand): void
     {
         // Starting test.
-        $result = $this->commandMapping->commandExists($command::COMMAND_NAME);
+        $result = $this->commandMapping->commandExists($stubCommand::COMMAND_NAME);
 
         // Assertion.
         $this->assertTrue($result);

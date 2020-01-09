@@ -141,8 +141,6 @@ class RemoveSymlinkFromPackagePathTest extends TestCase
         $stubPackage = 'test/package';
         $stubVendorPath = '/app/vendor/test/package';
 
-        $expectedVendorAsBackupPath = $stubVendorPath . Environment::PACKAGE_BACKUP_SUFFIX;
-
         // Assertion.
         $this->fileSystemMock
             ->expects($this->once())

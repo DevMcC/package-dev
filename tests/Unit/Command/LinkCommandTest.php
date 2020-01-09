@@ -36,23 +36,25 @@ class LinkCommandTest extends TestCase
 
     public function testHandle(): void
     {
+        $stubPackage = 'test/pak';
+
         // Assertion.
         $this->packageArgumentMock
             ->expects($this->once())
             ->method('package')
-            ->willReturn('test/pak');
+            ->willReturn($stubPackage);
 
         // Assertion.
         $this->environmentMock
             ->expects($this->once())
             ->method('link')
-            ->with('test/pak');
+            ->with($stubPackage);
 
         // Assertion.
         $this->outputMock
             ->expects($this->once())
             ->method('line')
-            ->with('Package "test/pak" has been linked');
+            ->with('Package ' . $stubPackage . ' has been linked');
 
         // Starting test.
         $this->command->handle();

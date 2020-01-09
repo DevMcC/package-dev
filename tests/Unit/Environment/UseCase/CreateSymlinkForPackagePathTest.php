@@ -129,7 +129,6 @@ class CreateSymlinkForPackagePathTest extends TestCase
         $stubVendorPath = '/app/vendor/test/package';
 
         $expectedVendorAsBackupPath = $stubVendorPath . Environment::PACKAGE_BACKUP_SUFFIX;
-        $expectedVendorAsLinkPath = Environment::PACKAGE_LINK_PREFIX . $stubPackage;
 
         // Assertion.
         $this->fileSystemMock

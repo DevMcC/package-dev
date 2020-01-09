@@ -42,7 +42,7 @@ class OutputTest extends TestCase
 
 STRING;
 
-        $list = [
+        $stubList = [
             ['testing', 'wat'],
             ['tested', '123123'],
             ['te', 'sting'],
@@ -55,7 +55,7 @@ STRING;
         $this->expectOutputString($expectedOutput);
 
         // Starting test.
-        $this->output->list($list);
+        $this->output->list($stubList);
     }
 
     public function linesDataProvider(): array

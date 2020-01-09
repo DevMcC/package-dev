@@ -10,55 +10,55 @@ class ProcessArgumentsTest extends TestCase
     /**
      * @dataProvider validProcessArgumentsDataProvider
      */
-    public function testConstruct(array $processArguments): void
+    public function testConstruct(array $stubProcessArguments): void
     {
         // Starting test.
-        $result = new ProcessArguments($processArguments);
+        $result = new ProcessArguments($stubProcessArguments);
 
         // Assertions.
         $this->assertFalse($result->commandWasNotSupplied());
         $this->assertFalse($result->argumentWasNotSupplied());
-        $this->assertSame(trim($processArguments[1]), $result->command());
-        $this->assertSame(trim($processArguments[2]), $result->argument());
+        $this->assertSame(trim($stubProcessArguments[1]), $result->command());
+        $this->assertSame(trim($stubProcessArguments[2]), $result->argument());
     }
 
     /**
      * @dataProvider invalidCommandDataProvider
      */
-    public function testConstructWhenCommandWasNotSupplied(array $processArguments): void
+    public function testConstructWhenCommandWasNotSupplied(array $stubProcessArguments): void
     {
         // Starting test.
-        $result = new ProcessArguments($processArguments);
+        $result = new ProcessArguments($stubProcessArguments);
 
         // Assertions.
         $this->assertTrue($result->commandWasNotSupplied());
         $this->assertFalse($result->argumentWasNotSupplied());
         $this->assertNull($result->command());
-        $this->assertSame(trim($processArguments[2]), $result->argument());
+        $this->assertSame(trim($stubProcessArguments[2]), $result->argument());
     }
 
     /**
      * @dataProvider invalidArgumentDataProvider
      */
-    public function testConstructWhenArgumentWasNotSupplied(array $processArguments): void
+    public function testConstructWhenArgumentWasNotSupplied(array $stubProcessArguments): void
     {
         // Starting test.
-        $result = new ProcessArguments($processArguments);
+        $result = new ProcessArguments($stubProcessArguments);
 
         // Assertions.
         $this->assertFalse($result->commandWasNotSupplied());
         $this->assertTrue($result->argumentWasNotSupplied());
-        $this->assertSame(trim($processArguments[1]), $result->command());
+        $this->assertSame(trim($stubProcessArguments[1]), $result->command());
         $this->assertNull($result->argument());
     }
 
     /**
      * @dataProvider invalidProcessArgumentsDataProvider
      */
-    public function testConstructWhenBothCommandAndArgumentAreNotSupplied(array $processArguments): void
+    public function testConstructWhenBothCommandAndArgumentAreNotSupplied(array $stubProcessArguments): void
     {
         // Starting test.
-        $result = new ProcessArguments($processArguments);
+        $result = new ProcessArguments($stubProcessArguments);
 
         // Assertions.
         $this->assertTrue($result->commandWasNotSupplied());
