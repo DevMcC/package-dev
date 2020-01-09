@@ -1,12 +1,12 @@
 <?php
 
-namespace DevMcC\PackageDev\Exception;
+namespace DevMcC\PackageDev\Exception\FileSystem;
 
 use Exception;
 
 class PackageNotFoundInVendor extends Exception
 {
-    public const MESSAGE_FORMAT = 'Package "%s" was not found in the vendor directory';
+    private const MESSAGE_FORMAT = 'Package "%s" was not found in the vendor directory';
 
     public function __construct(string $package)
     {

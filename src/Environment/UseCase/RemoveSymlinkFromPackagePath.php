@@ -4,8 +4,8 @@ namespace DevMcC\PackageDev\Environment\UseCase;
 
 use DevMcC\PackageDev\Environment\Environment;
 use DevMcC\PackageDev\Environment\FileSystem;
-use DevMcC\PackageDev\Exception\UnableToRemoveSymlinkFromPackage;
-use DevMcC\PackageDev\Exception\UnableToRestorePackage;
+use DevMcC\PackageDev\Exception\FileSystem\UnableToRemoveSymlinkFromPackage;
+use DevMcC\PackageDev\Exception\FileSystem\UnableToRestorePackage;
 
 class RemoveSymlinkFromPackagePath
 {

@@ -32,9 +32,9 @@
     * [x] src\Environment\UseCase\RemoveSymlinkFromPackagePath.php
 * [x] @var
 * [x] better namespace for tests
-* [ ] restructure exceptions
-    * [ ] better message constants
-* [ ] stub prefix for shared values
+* [x] restructure exceptions
+    * [x] better message constants
+* [ ] stub prefix for shared values in unit tests
 * [ ] phar
     * [ ] test run in scripts
     * [ ] unit test

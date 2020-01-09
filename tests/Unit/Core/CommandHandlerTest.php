@@ -10,7 +10,7 @@ use DevMcC\PackageDev\Config\CommandMapping;
 use DevMcC\PackageDev\Core\Autoloading\DependencyInjection;
 use DevMcC\PackageDev\Core\CommandHandler;
 use DevMcC\PackageDev\Core\Output;
-use DevMcC\PackageDev\Exception\TerminateCommand;
+use DevMcC\PackageDev\Exception\Command\TerminateCommand;
 use Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -189,6 +189,7 @@ class CommandHandlerTest extends TestCase
         $commandName = 'test123';
         $commandClassName = CommandHandlerTestCommand::class;
         $command = $this->createMock(Command::class);
+        $stubException = new Exception('test good');
 
         // Assertion.
         $this->processArgumentsMock
@@ -226,13 +227,13 @@ class CommandHandlerTest extends TestCase
         $command
             ->expects($this->once())
             ->method('handle')
-            ->willThrowException(new Exception('test good'));
+            ->willThrowException($stubException);
 
         // Assertion.
         $this->outputMock
             ->expects($this->once())
             ->method('line')
-            ->with('ERROR: test good');
+            ->with('ERROR: ' . $stubException->getMessage());
 
         // Assert exception.
         $this->expectException(TerminateCommand::class);

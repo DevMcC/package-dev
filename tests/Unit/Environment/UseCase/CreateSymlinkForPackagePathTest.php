@@ -5,8 +5,8 @@ namespace DevMcC\PackageDev\Test\Unit\Environment\UseCase;
 use DevMcC\PackageDev\Environment\Environment;
 use DevMcC\PackageDev\Environment\FileSystem;
 use DevMcC\PackageDev\Environment\UseCase\CreateSymlinkForPackagePath;
-use DevMcC\PackageDev\Exception\UnableToCreateBackupForPackage;
-use DevMcC\PackageDev\Exception\UnableToCreateSymlinkForPackage;
+use DevMcC\PackageDev\Exception\FileSystem\UnableToCreateBackupForPackage;
+use DevMcC\PackageDev\Exception\FileSystem\UnableToCreateSymlinkForPackage;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -154,7 +154,9 @@ class CreateSymlinkForPackagePathTest extends TestCase
 
         // Assert exception.
         $this->expectException(UnableToCreateBackupForPackage::class);
-        $this->expectExceptionMessage(sprintf(UnableToCreateBackupForPackage::MESSAGE_FORMAT, $stubPackage));
+        $this->expectExceptionMessage(
+            (new UnableToCreateBackupForPackage($stubPackage))->getMessage()
+        );
 
         // Assertion.
         $this->fileSystemMock->expects($this->never())->method('linkFileAs');
@@ -201,7 +203,9 @@ class CreateSymlinkForPackagePathTest extends TestCase
 
         // Assert exception.
         $this->expectException(UnableToCreateSymlinkForPackage::class);
-        $this->expectExceptionMessage(sprintf(UnableToCreateSymlinkForPackage::MESSAGE_FORMAT, $stubPackage));
+        $this->expectExceptionMessage(
+            (new UnableToCreateSymlinkForPackage($stubPackage))->getMessage()
+        );
 
         // Starting test.
         $this->useCase->execute($stubPackage, $stubVendorPath);

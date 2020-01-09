@@ -1,12 +1,12 @@
 <?php
 
-namespace DevMcC\PackageDev\Exception;
+namespace DevMcC\PackageDev\Exception\FileSystem;
 
 use Exception;
 
 class UnableToCreateSymlinkForPackage extends Exception
 {
-    public const MESSAGE_FORMAT = 'An error occured while trying to create a symlink for package "%s"';
+    private const MESSAGE_FORMAT = 'An error occured while trying to create a symlink for package "%s"';
 
     public function __construct(string $package)
     {

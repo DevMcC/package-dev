@@ -5,10 +5,10 @@ namespace DevMcC\PackageDev\Test\Unit\Environment;
 use DevMcC\PackageDev\Environment\Environment;
 use DevMcC\PackageDev\Environment\FileSystem;
 use DevMcC\PackageDev\Environment\PackagesFile;
-use DevMcC\PackageDev\Exception\EnvironmentNotInitialized;
-use DevMcC\PackageDev\Exception\UnableToCreatePackagesFile;
-use DevMcC\PackageDev\Exception\UnableToReadFromPackagesFile;
-use DevMcC\PackageDev\Exception\UnableToWriteToPackagesFile;
+use DevMcC\PackageDev\Exception\Environment\EnvironmentNotInitialized;
+use DevMcC\PackageDev\Exception\FileSystem\UnableToCreatePackagesFile;
+use DevMcC\PackageDev\Exception\FileSystem\UnableToReadFromPackagesFile;
+use DevMcC\PackageDev\Exception\FileSystem\UnableToWriteToPackagesFile;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -125,7 +125,9 @@ class PackagesFileTest extends TestCase
 
         // Assert exception.
         $this->expectException(UnableToCreatePackagesFile::class);
-        $this->expectExceptionMessage(UnableToCreatePackagesFile::MESSAGE);
+        $this->expectExceptionMessage(
+            (new UnableToCreatePackagesFile())->getMessage()
+        );
 
         // Assertion.
         $this->fileSystemMock->expects($this->never())->method('writeToFile');
@@ -161,7 +163,9 @@ class PackagesFileTest extends TestCase
 
         // Assert exception.
         $this->expectException(UnableToWriteToPackagesFile::class);
-        $this->expectExceptionMessage(UnableToWriteToPackagesFile::MESSAGE);
+        $this->expectExceptionMessage(
+            (new UnableToWriteToPackagesFile())->getMessage()
+        );
 
         // Starting test.
         $this->packagesFile->initialize();
@@ -246,7 +250,9 @@ class PackagesFileTest extends TestCase
 
         // Assert exception.
         $this->expectException(EnvironmentNotInitialized::class);
-        $this->expectExceptionMessage(EnvironmentNotInitialized::MESSAGE);
+        $this->expectExceptionMessage(
+            (new EnvironmentNotInitialized())->getMessage()
+        );
 
         // Assertions.
         $this->fileSystemMock->expects($this->never())->method('readFromFile');
@@ -276,7 +282,9 @@ class PackagesFileTest extends TestCase
 
         // Assert exception.
         $this->expectException(UnableToReadFromPackagesFile::class);
-        $this->expectExceptionMessage(UnableToReadFromPackagesFile::MESSAGE);
+        $this->expectExceptionMessage(
+            (new UnableToReadFromPackagesFile())->getMessage()
+        );
 
         // Assertion.
         $this->fileSystemMock->expects($this->never())->method('writeToFile');
@@ -320,7 +328,9 @@ class PackagesFileTest extends TestCase
 
         // Assert exception.
         $this->expectException(UnableToWriteToPackagesFile::class);
-        $this->expectExceptionMessage(UnableToWriteToPackagesFile::MESSAGE);
+        $this->expectExceptionMessage(
+            (new UnableToWriteToPackagesFile())->getMessage()
+        );
 
         // Starting test.
         $this->packagesFile->addPackage($stubPackageName);
@@ -405,7 +415,9 @@ class PackagesFileTest extends TestCase
 
         // Assert exception.
         $this->expectException(EnvironmentNotInitialized::class);
-        $this->expectExceptionMessage(EnvironmentNotInitialized::MESSAGE);
+        $this->expectExceptionMessage(
+            (new EnvironmentNotInitialized())->getMessage()
+        );
 
         // Assertions.
         $this->fileSystemMock->expects($this->never())->method('readFromFile');
@@ -435,7 +447,9 @@ class PackagesFileTest extends TestCase
 
         // Assert exception.
         $this->expectException(UnableToReadFromPackagesFile::class);
-        $this->expectExceptionMessage(UnableToReadFromPackagesFile::MESSAGE);
+        $this->expectExceptionMessage(
+            (new UnableToReadFromPackagesFile())->getMessage()
+        );
 
         // Assertion.
         $this->fileSystemMock->expects($this->never())->method('writeToFile');
@@ -479,7 +493,9 @@ class PackagesFileTest extends TestCase
 
         // Assert exception.
         $this->expectException(UnableToWriteToPackagesFile::class);
-        $this->expectExceptionMessage(UnableToWriteToPackagesFile::MESSAGE);
+        $this->expectExceptionMessage(
+            (new UnableToWriteToPackagesFile())->getMessage()
+        );
 
         // Starting test.
         $this->packagesFile->removePackage($stubPackageName);
@@ -525,7 +541,9 @@ class PackagesFileTest extends TestCase
 
         // Assert exception.
         $this->expectException(EnvironmentNotInitialized::class);
-        $this->expectExceptionMessage(EnvironmentNotInitialized::MESSAGE);
+        $this->expectExceptionMessage(
+            (new EnvironmentNotInitialized())->getMessage()
+        );
 
         // Assertion.
         $this->fileSystemMock->expects($this->never())->method('readFromFile');
@@ -552,7 +570,9 @@ class PackagesFileTest extends TestCase
 
         // Assert exception.
         $this->expectException(UnableToReadFromPackagesFile::class);
-        $this->expectExceptionMessage(UnableToReadFromPackagesFile::MESSAGE);
+        $this->expectExceptionMessage(
+            (new UnableToReadFromPackagesFile())->getMessage()
+        );
 
         // Starting test.
         $this->packagesFile->getPackages();

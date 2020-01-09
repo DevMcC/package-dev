@@ -8,13 +8,13 @@ use DevMcC\PackageDev\Environment\PackageManagement;
 use DevMcC\PackageDev\Environment\UseCase\CreateSymlinkForPackagePath;
 use DevMcC\PackageDev\Environment\UseCase\GetVendorPathFromPackage;
 use DevMcC\PackageDev\Environment\UseCase\RemoveSymlinkFromPackagePath;
-use DevMcC\PackageDev\Exception\PackageNotFoundInPackages;
-use DevMcC\PackageDev\Exception\PackageNotFoundInVendor;
-use DevMcC\PackageDev\Exception\UnableToCreateBackupForPackage;
-use DevMcC\PackageDev\Exception\UnableToCreatePackagesDirectory;
-use DevMcC\PackageDev\Exception\UnableToCreateSymlinkForPackage;
-use DevMcC\PackageDev\Exception\UnableToRemoveSymlinkFromPackage;
-use DevMcC\PackageDev\Exception\UnableToRestorePackage;
+use DevMcC\PackageDev\Exception\FileSystem\PackageNotFoundInPackages;
+use DevMcC\PackageDev\Exception\FileSystem\PackageNotFoundInVendor;
+use DevMcC\PackageDev\Exception\FileSystem\UnableToCreateBackupForPackage;
+use DevMcC\PackageDev\Exception\FileSystem\UnableToCreatePackagesDirectory;
+use DevMcC\PackageDev\Exception\FileSystem\UnableToCreateSymlinkForPackage;
+use DevMcC\PackageDev\Exception\FileSystem\UnableToRemoveSymlinkFromPackage;
+use DevMcC\PackageDev\Exception\FileSystem\UnableToRestorePackage;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -101,7 +101,9 @@ class PackageManagementTest extends TestCase
 
         // Assert Exception.
         $this->expectException(UnableToCreatePackagesDirectory::class);
-        $this->expectExceptionMessage(UnableToCreatePackagesDirectory::MESSAGE);
+        $this->expectExceptionMessage(
+            (new UnableToCreatePackagesDirectory())->getMessage()
+        );
 
         // Starting test.
         $this->packageManagement->initialize();
@@ -124,21 +126,17 @@ class PackageManagementTest extends TestCase
     public function testValidatePackageWhenPackageNotFoundInPackages(): void
     {
         $stubPackageName = 'test/package';
+        $stubException = new PackageNotFoundInPackages($stubPackageName);
 
         // Assertion.
         $this->getVendorPathFromPackageMock
             ->expects($this->once())
             ->method('execute')
             ->with($stubPackageName)
-            ->will(
-                $this->throwException(new PackageNotFoundInPackages($stubPackageName))
-            );
+            ->willThrowException($stubException);
 
         // Assert Exception.
-        $this->expectException(PackageNotFoundInPackages::class);
-        $this->expectExceptionMessage(
-            sprintf(PackageNotFoundInPackages::MESSAGE_FORMAT, $stubPackageName)
-        );
+        $this->expectExceptionObject($stubException);
 
         // Starting test.
         $this->packageManagement->validatePackage($stubPackageName);
@@ -147,21 +145,17 @@ class PackageManagementTest extends TestCase
     public function testValidatePackageWhenPackageNotFoundInVendor(): void
     {
         $stubPackageName = 'test/package';
+        $stubException = new PackageNotFoundInVendor($stubPackageName);
 
         // Assertion.
         $this->getVendorPathFromPackageMock
             ->expects($this->once())
             ->method('execute')
             ->with($stubPackageName)
-            ->will(
-                $this->throwException(new PackageNotFoundInVendor($stubPackageName))
-            );
+            ->willThrowException($stubException);
 
         // Assert Exception.
-        $this->expectException(PackageNotFoundInVendor::class);
-        $this->expectExceptionMessage(
-            sprintf(PackageNotFoundInVendor::MESSAGE_FORMAT, $stubPackageName)
-        );
+        $this->expectExceptionObject($stubException);
 
         // Starting test.
         $this->packageManagement->validatePackage($stubPackageName);
@@ -193,6 +187,7 @@ class PackageManagementTest extends TestCase
     {
         $stubPackageName = 'test/package';
         $stubVendorPath = 'path/to/vendor/test/package';
+        $stubException = new UnableToCreateBackupForPackage($stubPackageName);
 
         // Assertion.
         $this->getVendorPathFromPackageMock
@@ -206,15 +201,10 @@ class PackageManagementTest extends TestCase
             ->expects($this->once())
             ->method('execute')
             ->with($stubPackageName, $stubVendorPath)
-            ->will(
-                $this->throwException(new UnableToCreateBackupForPackage($stubPackageName))
-            );
+            ->willThrowException($stubException);
 
         // Assert Exception.
-        $this->expectException(UnableToCreateBackupForPackage::class);
-        $this->expectExceptionMessage(
-            sprintf(UnableToCreateBackupForPackage::MESSAGE_FORMAT, $stubPackageName)
-        );
+        $this->expectExceptionObject($stubException);
 
         // Starting test.
         $this->packageManagement->createSymlinkForPackage($stubPackageName);
@@ -224,6 +214,7 @@ class PackageManagementTest extends TestCase
     {
         $stubPackageName = 'test/package';
         $stubVendorPath = 'path/to/vendor/test/package';
+        $stubException = new UnableToCreateSymlinkForPackage($stubPackageName);
 
         // Assertion.
         $this->getVendorPathFromPackageMock
@@ -237,15 +228,10 @@ class PackageManagementTest extends TestCase
             ->expects($this->once())
             ->method('execute')
             ->with($stubPackageName, $stubVendorPath)
-            ->will(
-                $this->throwException(new UnableToCreateSymlinkForPackage($stubPackageName))
-            );
+            ->willThrowException($stubException);
 
         // Assert Exception.
-        $this->expectException(UnableToCreateSymlinkForPackage::class);
-        $this->expectExceptionMessage(
-            sprintf(UnableToCreateSymlinkForPackage::MESSAGE_FORMAT, $stubPackageName)
-        );
+        $this->expectExceptionObject($stubException);
 
         // Starting test.
         $this->packageManagement->createSymlinkForPackage($stubPackageName);
@@ -277,6 +263,7 @@ class PackageManagementTest extends TestCase
     {
         $stubPackageName = 'test/package';
         $stubVendorPath = 'path/to/vendor/test/package';
+        $stubException = new UnableToRemoveSymlinkFromPackage($stubPackageName);
 
         // Assertion.
         $this->getVendorPathFromPackageMock
@@ -290,15 +277,10 @@ class PackageManagementTest extends TestCase
             ->expects($this->once())
             ->method('execute')
             ->with($stubPackageName, $stubVendorPath)
-            ->will(
-                $this->throwException(new UnableToRemoveSymlinkFromPackage($stubPackageName))
-            );
+            ->willThrowException($stubException);
 
         // Assert Exception.
-        $this->expectException(UnableToRemoveSymlinkFromPackage::class);
-        $this->expectExceptionMessage(
-            sprintf(UnableToRemoveSymlinkFromPackage::MESSAGE_FORMAT, $stubPackageName)
-        );
+        $this->expectExceptionObject($stubException);
 
         // Starting test.
         $this->packageManagement->removeSymlinkFromPackage($stubPackageName);
@@ -308,6 +290,7 @@ class PackageManagementTest extends TestCase
     {
         $stubPackageName = 'test/package';
         $stubVendorPath = 'path/to/vendor/test/package';
+        $stubException = new UnableToRestorePackage($stubPackageName);
 
         // Assertion.
         $this->getVendorPathFromPackageMock
@@ -321,15 +304,10 @@ class PackageManagementTest extends TestCase
             ->expects($this->once())
             ->method('execute')
             ->with($stubPackageName, $stubVendorPath)
-            ->will(
-                $this->throwException(new UnableToRestorePackage($stubPackageName))
-            );
+            ->willThrowException($stubException);
 
         // Assert Exception.
-        $this->expectException(UnableToRestorePackage::class);
-        $this->expectExceptionMessage(
-            sprintf(UnableToRestorePackage::MESSAGE_FORMAT, $stubPackageName)
-        );
+        $this->expectExceptionObject($stubException);
 
         // Starting test.
         $this->packageManagement->removeSymlinkFromPackage($stubPackageName);
@@ -385,6 +363,7 @@ class PackageManagementTest extends TestCase
             'package/test',
         ];
         $stubVendorPaths0 = 'path/to/vendor/test/package';
+        $stubException0 = new UnableToCreateBackupForPackage($stubPackageNames[0]);
 
         // Assertion.
         $this->getVendorPathFromPackageMock
@@ -398,15 +377,10 @@ class PackageManagementTest extends TestCase
             ->expects($this->once())
             ->method('execute')
             ->with($stubPackageNames[0], $stubVendorPaths0)
-            ->will(
-                $this->throwException(new UnableToCreateBackupForPackage($stubPackageNames[0]))
-            );
+            ->willThrowException($stubException0);
 
         // Assert Exception.
-        $this->expectException(UnableToCreateBackupForPackage::class);
-        $this->expectExceptionMessage(
-            sprintf(UnableToCreateBackupForPackage::MESSAGE_FORMAT, $stubPackageNames[0])
-        );
+        $this->expectExceptionObject($stubException0);
 
         // Starting test.
         $this->packageManagement->createSymlinkForPackages($stubPackageNames);
@@ -420,6 +394,7 @@ class PackageManagementTest extends TestCase
             'package/test',
         ];
         $stubVendorPaths0 = 'path/to/vendor/test/package';
+        $stubException0 = new UnableToCreateSymlinkForPackage($stubPackageNames[0]);
 
         // Assertion.
         $this->getVendorPathFromPackageMock
@@ -433,15 +408,10 @@ class PackageManagementTest extends TestCase
             ->expects($this->once())
             ->method('execute')
             ->with($stubPackageNames[0], $stubVendorPaths0)
-            ->will(
-                $this->throwException(new UnableToCreateSymlinkForPackage($stubPackageNames[0]))
-            );
+            ->willThrowException($stubException0);
 
         // Assert Exception.
-        $this->expectException(UnableToCreateSymlinkForPackage::class);
-        $this->expectExceptionMessage(
-            sprintf(UnableToCreateSymlinkForPackage::MESSAGE_FORMAT, $stubPackageNames[0])
-        );
+        $this->expectExceptionObject($stubException0);
 
         // Starting test.
         $this->packageManagement->createSymlinkForPackages($stubPackageNames);
@@ -497,6 +467,7 @@ class PackageManagementTest extends TestCase
             'package/test',
         ];
         $stubVendorPaths0 = 'path/to/vendor/test/package';
+        $stubException0 = new UnableToRemoveSymlinkFromPackage($stubPackageNames[0]);
 
         // Assertion.
         $this->getVendorPathFromPackageMock
@@ -510,15 +481,10 @@ class PackageManagementTest extends TestCase
             ->expects($this->once())
             ->method('execute')
             ->with($stubPackageNames[0], $stubVendorPaths0)
-            ->will(
-                $this->throwException(new UnableToRemoveSymlinkFromPackage($stubPackageNames[0]))
-            );
+            ->willThrowException($stubException0);
 
         // Assert Exception.
-        $this->expectException(UnableToRemoveSymlinkFromPackage::class);
-        $this->expectExceptionMessage(
-            sprintf(UnableToRemoveSymlinkFromPackage::MESSAGE_FORMAT, $stubPackageNames[0])
-        );
+        $this->expectExceptionObject($stubException0);
 
         // Starting test.
         $this->packageManagement->removeSymlinkFromPackages($stubPackageNames);
@@ -532,6 +498,7 @@ class PackageManagementTest extends TestCase
             'package/test',
         ];
         $stubVendorPaths0 = 'path/to/vendor/test/package';
+        $stubException0 = new UnableToRestorePackage($stubPackageNames[0]);
 
         // Assertion.
         $this->getVendorPathFromPackageMock
@@ -545,15 +512,10 @@ class PackageManagementTest extends TestCase
             ->expects($this->once())
             ->method('execute')
             ->with($stubPackageNames[0], $stubVendorPaths0)
-            ->will(
-                $this->throwException(new UnableToRestorePackage($stubPackageNames[0]))
-            );
+            ->willThrowException($stubException0);
 
         // Assert Exception.
-        $this->expectException(UnableToRestorePackage::class);
-        $this->expectExceptionMessage(
-            sprintf(UnableToRestorePackage::MESSAGE_FORMAT, $stubPackageNames[0])
-        );
+        $this->expectExceptionObject($stubException0);
 
         // Starting test.
         $this->packageManagement->removeSymlinkFromPackages($stubPackageNames);

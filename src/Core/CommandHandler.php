@@ -4,9 +4,9 @@ namespace DevMcC\PackageDev\Core;
 
 use DevMcC\PackageDev\Config\CommandMapping;
 use DevMcC\PackageDev\Core\Autoloading\DependencyInjection;
-use DevMcC\PackageDev\Exception\CommandNotFound;
-use DevMcC\PackageDev\Exception\CommandWasNotSupplied;
-use DevMcC\PackageDev\Exception\TerminateCommand;
+use DevMcC\PackageDev\Exception\Command\CommandNotFound;
+use DevMcC\PackageDev\Exception\Command\CommandWasNotSupplied;
+use DevMcC\PackageDev\Exception\Command\TerminateCommand;
 use DevMcC\PackageDev\Command\Command;
 use DevMcC\PackageDev\CommandArgument\ProcessArguments;
 use Exception;

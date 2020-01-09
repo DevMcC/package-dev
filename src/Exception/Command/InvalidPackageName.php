@@ -1,12 +1,12 @@
 <?php
 
-namespace DevMcC\PackageDev\Exception;
+namespace DevMcC\PackageDev\Exception\Command;
 
 use Exception;
 
-class UnableToRestorePackage extends Exception
+class InvalidPackageName extends Exception
 {
-    public const MESSAGE_FORMAT = 'An error occured while trying to restore package "%s"';
+    private const MESSAGE_FORMAT = 'Package name "%s" is invalid';
 
     public function __construct(string $package)
     {

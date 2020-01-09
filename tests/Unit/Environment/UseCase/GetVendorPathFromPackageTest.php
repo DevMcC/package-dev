@@ -5,8 +5,8 @@ namespace DevMcC\PackageDev\Test\Unit\Environment\UseCase;
 use DevMcC\PackageDev\Environment\Environment;
 use DevMcC\PackageDev\Environment\FileSystem;
 use DevMcC\PackageDev\Environment\UseCase\GetVendorPathFromPackage;
-use DevMcC\PackageDev\Exception\PackageNotFoundInPackages;
-use DevMcC\PackageDev\Exception\PackageNotFoundInVendor;
+use DevMcC\PackageDev\Exception\FileSystem\PackageNotFoundInPackages;
+use DevMcC\PackageDev\Exception\FileSystem\PackageNotFoundInVendor;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -99,7 +99,9 @@ class GetVendorPathFromPackageTest extends TestCase
 
         // Assert exception.
         $this->expectException(PackageNotFoundInPackages::class);
-        $this->expectExceptionMessage(sprintf(PackageNotFoundInPackages::MESSAGE_FORMAT, $stubPackage));
+        $this->expectExceptionMessage(
+            (new PackageNotFoundInPackages($stubPackage))->getMessage()
+        );
 
         // Starting test.
         $this->useCase->execute($stubPackage);
@@ -130,7 +132,9 @@ class GetVendorPathFromPackageTest extends TestCase
 
         // Assert exception.
         $this->expectException(PackageNotFoundInVendor::class);
-        $this->expectExceptionMessage(sprintf(PackageNotFoundInVendor::MESSAGE_FORMAT, $stubPackage));
+        $this->expectExceptionMessage(
+            (new PackageNotFoundInVendor($stubPackage))->getMessage()
+        );
 
         // Starting test.
         $this->useCase->execute($stubPackage);

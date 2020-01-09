@@ -6,7 +6,7 @@ use DevMcC\PackageDev\Environment\FileSystem;
 use DevMcC\PackageDev\Environment\UseCase\CreateSymlinkForPackagePath;
 use DevMcC\PackageDev\Environment\UseCase\GetVendorPathFromPackage;
 use DevMcC\PackageDev\Environment\UseCase\RemoveSymlinkFromPackagePath;
-use DevMcC\PackageDev\Exception\UnableToCreatePackagesDirectory;
+use DevMcC\PackageDev\Exception\FileSystem\UnableToCreatePackagesDirectory;
 
 class PackageManagement
 {

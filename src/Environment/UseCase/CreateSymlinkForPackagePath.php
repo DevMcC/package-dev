@@ -4,8 +4,8 @@ namespace DevMcC\PackageDev\Environment\UseCase;
 
 use DevMcC\PackageDev\Environment\Environment;
 use DevMcC\PackageDev\Environment\FileSystem;
-use DevMcC\PackageDev\Exception\UnableToCreateBackupForPackage;
-use DevMcC\PackageDev\Exception\UnableToCreateSymlinkForPackage;
+use DevMcC\PackageDev\Exception\FileSystem\UnableToCreateBackupForPackage;
+use DevMcC\PackageDev\Exception\FileSystem\UnableToCreateSymlinkForPackage;
 
 class CreateSymlinkForPackagePath
 {

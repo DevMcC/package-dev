@@ -4,7 +4,7 @@ namespace DevMcC\PackageDev\CommandArgument;
 
 use DevMcC\PackageDev\CommandArgument\ProcessArguments;
 use DevMcC\PackageDev\Config\CommandMapping;
-use DevMcC\PackageDev\Exception\CommandNotFound;
+use DevMcC\PackageDev\Exception\Command\CommandNotFound;
 
 class CommandOptionalArgument
 {

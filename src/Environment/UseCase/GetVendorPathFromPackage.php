@@ -4,8 +4,8 @@ namespace DevMcC\PackageDev\Environment\UseCase;
 
 use DevMcC\PackageDev\Environment\Environment;
 use DevMcC\PackageDev\Environment\FileSystem;
-use DevMcC\PackageDev\Exception\PackageNotFoundInPackages;
-use DevMcC\PackageDev\Exception\PackageNotFoundInVendor;
+use DevMcC\PackageDev\Exception\FileSystem\PackageNotFoundInPackages;
+use DevMcC\PackageDev\Exception\FileSystem\PackageNotFoundInVendor;
 
 class GetVendorPathFromPackage
 {

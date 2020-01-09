@@ -5,8 +5,8 @@ namespace DevMcC\PackageDev\Test\Unit\Environment\UseCase;
 use DevMcC\PackageDev\Environment\Environment;
 use DevMcC\PackageDev\Environment\FileSystem;
 use DevMcC\PackageDev\Environment\UseCase\RemoveSymlinkFromPackagePath;
-use DevMcC\PackageDev\Exception\UnableToRemoveSymlinkFromPackage;
-use DevMcC\PackageDev\Exception\UnableToRestorePackage;
+use DevMcC\PackageDev\Exception\FileSystem\UnableToRemoveSymlinkFromPackage;
+use DevMcC\PackageDev\Exception\FileSystem\UnableToRestorePackage;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -159,7 +159,9 @@ class RemoveSymlinkFromPackagePathTest extends TestCase
 
         // Assert exception.
         $this->expectException(UnableToRemoveSymlinkFromPackage::class);
-        $this->expectExceptionMessage(sprintf(UnableToRemoveSymlinkFromPackage::MESSAGE_FORMAT, $stubPackage));
+        $this->expectExceptionMessage(
+            (new UnableToRemoveSymlinkFromPackage($stubPackage))->getMessage()
+        );
 
         // Assertions.
         $this->fileSystemMock->expects($this->never())->method('doesDirectoryExist');
@@ -206,7 +208,9 @@ class RemoveSymlinkFromPackagePathTest extends TestCase
 
         // Assert exception.
         $this->expectException(UnableToRestorePackage::class);
-        $this->expectExceptionMessage(sprintf(UnableToRestorePackage::MESSAGE_FORMAT, $stubPackage));
+        $this->expectExceptionMessage(
+            (new UnableToRestorePackage($stubPackage))->getMessage()
+        );
 
         // Starting test.
         $this->useCase->execute($stubPackage, $stubVendorPath);

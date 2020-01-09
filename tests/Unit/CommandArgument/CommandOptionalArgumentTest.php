@@ -5,7 +5,7 @@ namespace DevMcC\PackageDev\Test\Unit\CommandArgument;
 use DevMcC\PackageDev\CommandArgument\CommandOptionalArgument;
 use DevMcC\PackageDev\CommandArgument\ProcessArguments;
 use DevMcC\PackageDev\Config\CommandMapping;
-use DevMcC\PackageDev\Exception\CommandNotFound;
+use DevMcC\PackageDev\Exception\Command\CommandNotFound;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -79,6 +79,8 @@ class CommandOptionalArgumentTest extends TestCase
 
     public function testConstructWhenCommandNotFound(): void
     {
+        $stubCommand = 'test';
+
         // Assertion.
         $this->processArgumentsMock
             ->expects($this->once())
@@ -89,18 +91,20 @@ class CommandOptionalArgumentTest extends TestCase
         $this->processArgumentsMock
             ->expects($this->once())
             ->method('argument')
-            ->willReturn('test');
+            ->willReturn($stubCommand);
 
         // Assertion.
         $this->commandMappingMock
             ->expects($this->once())
             ->method('commandExists')
-            ->with('test')
+            ->with($stubCommand)
             ->willReturn(false);
 
         // Assert Exception.
         $this->expectException(CommandNotFound::class);
-        $this->expectExceptionMessage('Command "test" not found');
+        $this->expectExceptionMessage(
+            (new CommandNotFound($stubCommand))->getMessage()
+        );
 
         // Starting test.
         new CommandOptionalArgument(

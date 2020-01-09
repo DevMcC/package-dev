@@ -1,12 +1,12 @@
 <?php
 
-namespace DevMcC\PackageDev\Exception;
+namespace DevMcC\PackageDev\Exception\Command;
 
 use Exception;
 
 class CommandNotFound extends Exception
 {
-    public const MESSAGE_FORMAT = 'Command "%s" not found';
+    private const MESSAGE_FORMAT = 'Command "%s" not found';
 
     public function __construct(string $command)
     {

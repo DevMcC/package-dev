@@ -4,8 +4,8 @@ namespace DevMcC\PackageDev\Test\Unit\CommandArgument;
 
 use DevMcC\PackageDev\CommandArgument\PackageArgument;
 use DevMcC\PackageDev\CommandArgument\ProcessArguments;
-use DevMcC\PackageDev\Exception\InvalidPackageName;
-use DevMcC\PackageDev\Exception\PackageArgumentWasNotSupplied;
+use DevMcC\PackageDev\Exception\Command\InvalidPackageName;
+use DevMcC\PackageDev\Exception\Command\PackageArgumentWasNotSupplied;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -22,7 +22,7 @@ class PackageArgumentTest extends TestCase
     /**
      * @dataProvider validPackageNamesDataProvider
      */
-    public function testConstruct(string $packageName): void
+    public function testConstruct(string $stubPackageName): void
     {
         // Assertion.
         $this->processArgumentsMock
@@ -34,7 +34,7 @@ class PackageArgumentTest extends TestCase
         $this->processArgumentsMock
             ->expects($this->once())
             ->method('argument')
-            ->willReturn($packageName);
+            ->willReturn($stubPackageName);
 
         // Starting test.
         $result = new PackageArgument(
@@ -42,7 +42,7 @@ class PackageArgumentTest extends TestCase
         );
 
         // Assertion.
-        $this->assertSame($packageName, $result->package());
+        $this->assertSame($stubPackageName, $result->package());
     }
 
     public function testConstructWhenPackageArgumentWasNotSupplied(): void
@@ -58,7 +58,9 @@ class PackageArgumentTest extends TestCase
 
         // Assert exception.
         $this->expectException(PackageArgumentWasNotSupplied::class);
-        $this->expectExceptionMessage('Package argument was not supplied');
+        $this->expectExceptionMessage(
+            (new PackageArgumentWasNotSupplied())->getMessage()
+        );
 
         // Starting test.
         new PackageArgument(
@@ -69,7 +71,7 @@ class PackageArgumentTest extends TestCase
     /**
      * @dataProvider invalidPackageNamesDataProvider
      */
-    public function testConstructWhenInvalidPackageName(string $packageName): void
+    public function testConstructWhenInvalidPackageName(string $stubPackageName): void
     {
         // Assertion.
         $this->processArgumentsMock
@@ -81,11 +83,13 @@ class PackageArgumentTest extends TestCase
         $this->processArgumentsMock
             ->expects($this->once())
             ->method('argument')
-            ->willReturn($packageName);
+            ->willReturn($stubPackageName);
 
         // Assert exception.
         $this->expectException(InvalidPackageName::class);
-        $this->expectExceptionMessage('Package name "' . $packageName . '" is invalid');
+        $this->expectExceptionMessage(
+            (new InvalidPackageName($stubPackageName))->getMessage()
+        );
 
         // Starting test.
         new PackageArgument(

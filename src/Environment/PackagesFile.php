@@ -2,10 +2,10 @@
 
 namespace DevMcC\PackageDev\Environment;
 
-use DevMcC\PackageDev\Exception\EnvironmentNotInitialized;
-use DevMcC\PackageDev\Exception\UnableToCreatePackagesFile;
-use DevMcC\PackageDev\Exception\UnableToReadFromPackagesFile;
-use DevMcC\PackageDev\Exception\UnableToWriteToPackagesFile;
+use DevMcC\PackageDev\Exception\Environment\EnvironmentNotInitialized;
+use DevMcC\PackageDev\Exception\FileSystem\UnableToCreatePackagesFile;
+use DevMcC\PackageDev\Exception\FileSystem\UnableToReadFromPackagesFile;
+use DevMcC\PackageDev\Exception\FileSystem\UnableToWriteToPackagesFile;
 
 class PackagesFile
 {

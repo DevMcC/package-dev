@@ -2,8 +2,8 @@
 
 namespace DevMcC\PackageDev\CommandArgument;
 
-use DevMcC\PackageDev\Exception\InvalidPackageName;
-use DevMcC\PackageDev\Exception\PackageArgumentWasNotSupplied;
+use DevMcC\PackageDev\Exception\Command\InvalidPackageName;
+use DevMcC\PackageDev\Exception\Command\PackageArgumentWasNotSupplied;
 
 class PackageArgument
 {
