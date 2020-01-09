@@ -7,7 +7,7 @@
 * [x] symlink-create
 * [x] symlink-remove
 * [x] symlink management
-* [ ] unit tests
+* [x] unit tests
     * [x] src\Command\HelpCommand.php
     * [x] src\Command\InitCommand.php
     * [x] src\Command\LinkCommand.php
@@ -23,7 +23,7 @@
     * [x] src\Core\CommandHandler.php
     * [x] src\Core\Output.php
     * [x] src\Environment\Environment.php
-    * [ ] src\Environment\FileSystem.php
+    * [x] src\Environment\FileSystem.php
     * [x] src\Environment\PackageManagement.php
     * [x] src\Environment\PackagesFile.php
     * [x] src\Environment\RootDirectory.php

@@ -1,6 +1,6 @@
 <?php
 
-require_once(__DIR__  . '/ClassLoader.php');
+require_once __DIR__  . '/ClassLoader.php';
 
 use DevMcC\PackageDev\Core\Autoloading\ClassLoader;
 

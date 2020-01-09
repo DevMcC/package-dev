@@ -16,15 +16,17 @@ class ClassLoader
 
     public function autoload(string $className): void
     {
-        $classPath = str_replace(self::CLASS_NAME_PREFIX, $this->srcDir, $className);
-        $classPath = str_replace('\\', '/', $classPath);
-        $classPath = $classPath . '.php';
+        $classFile = str_replace(self::CLASS_NAME_PREFIX, $this->srcDir, $className);
+        $classFile = str_replace('\\', '/', $classFile);
+        $classFile = $classFile . '.php';
 
-        classLoaderRequire($classPath);
+        if (is_file($classFile)) {
+            classLoaderRequire($classFile);
+        }
     }
 }
 
-function classLoaderRequire(string $classPath): void
+function classLoaderRequire(string $classFile): void
 {
-    require $classPath;
+    require $classFile;
 }

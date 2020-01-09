@@ -17,17 +17,17 @@ class FileSystem
 
     public function doesFileExist(string $file): bool
     {
-        return is_file($this->path($file));
+        return @is_file($this->path($file));
     }
 
     public function doesDirectoryExist(string $directory): bool
     {
-        return is_dir($this->path($directory));
+        return @is_dir($this->path($directory));
     }
 
     public function doesLinkExist(string $link): bool
     {
-        return is_link($link);
+        return @is_link($this->path($link));
     }
 
     // Create.
@@ -67,20 +67,24 @@ class FileSystem
 
     public function moveFileTo(string $file, string $to): bool
     {
-        return @rename($file, $to);
+        return @rename($this->path($file), $this->path($to));
     }
 
     // Link.
 
-    public function linkFileAs(string $file, string $link): bool
+    public function linkFileAs(string $file, string $as): bool
     {
-        return @symlink($file, $this->path($link));
+        return @symlink($file, $this->path($as));
     }
 
     // Helpers.
 
     private function path(string $path): string
     {
-        return $this->rootDirectory->rootDirectory() . '/' . $path;
+        return sprintf(
+            '%s/%s',
+            $this->rootDirectory->rootDirectory(),
+            $path
+        );
     }
 }
