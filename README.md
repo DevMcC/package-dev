@@ -31,20 +31,20 @@
     * [x] src\Environment\UseCase\CreateSymlinkForPackagePath.php
     * [x] src\Environment\UseCase\RemoveSymlinkFromPackagePath.php
 * [x] @var
-* [ ] better namespace for tests
+* [x] better namespace for tests
 * [ ] restructure exceptions
     * [ ] better message constants
 * [ ] stub prefix for shared values
 * [ ] phar
-    * [ ] run in scripts
+    * [ ] test run in scripts
     * [ ] unit test
 * [ ] other
     * [ ] unit test intelephense fix
     * [ ] phpstan
     * [ ] code coverage
     * [ ] integration test
-* [ ] test on linux
-* [ ] configure for github
+* [ ] complete testing
+* [ ] configure pipeline for github
 * [ ] finish README
 
 # Tests

@@ -1,6 +1,6 @@
 <?php
 
-namespace DevMcC\PackageDev\Test\Command;
+namespace DevMcC\PackageDev\Test\Unit\Command;
 
 use DevMcC\PackageDev\Command\SymlinkRemoveCommand;
 use DevMcC\PackageDev\Core\Output;

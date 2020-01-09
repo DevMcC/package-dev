@@ -1,6 +1,6 @@
 <?php
 
-namespace DevMcC\PackageDev\Test\Environment;
+namespace DevMcC\PackageDev\Test\Unit\Environment;
 
 use DevMcC\PackageDev\Environment\RootDirectory;
 use PHPUnit\Framework\TestCase;

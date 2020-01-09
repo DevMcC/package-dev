@@ -1,6 +1,6 @@
 <?php
 
-namespace DevMcC\PackageDev\Test\Core\Autoloading;
+namespace DevMcC\PackageDev\Test\Unit\Core\Autoloading;
 
 use DevMcC\PackageDev\Core\Autoloading\ClassLoader;
 use org\bovigo\vfs\vfsStream;

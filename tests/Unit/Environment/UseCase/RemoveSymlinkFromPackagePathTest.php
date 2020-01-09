@@ -1,6 +1,6 @@
 <?php
 
-namespace DevMcC\PackageDev\Test\Environment\UseCase;
+namespace DevMcC\PackageDev\Test\Unit\Environment\UseCase;
 
 use DevMcC\PackageDev\Environment\Environment;
 use DevMcC\PackageDev\Environment\FileSystem;

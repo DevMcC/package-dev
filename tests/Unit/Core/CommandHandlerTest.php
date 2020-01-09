@@ -1,6 +1,6 @@
 <?php
 
-namespace DevMcC\PackageDev\Test\Core;
+namespace DevMcC\PackageDev\Test\Unit\Core;
 
 use DevMcC\PackageDev\Command\Command;
 use DevMcC\PackageDev\Command\HelpCommand;

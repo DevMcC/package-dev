@@ -1,6 +1,6 @@
 <?php
 
-namespace DevMcC\PackageDev\Test\Command;
+namespace DevMcC\PackageDev\Test\Unit\Command;
 
 use DevMcC\PackageDev\Command\SymlinkCreateCommand;
 use DevMcC\PackageDev\Core\Output;

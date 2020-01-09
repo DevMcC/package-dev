@@ -1,6 +1,6 @@
 <?php
 
-namespace DevMcC\PackageDev\Test\Stub\Core\Autoloading;
+namespace DevMcC\PackageDev\Test\Unit\Stub\Core\Autoloading;
 
 /**
  * Dependency Injection stub.

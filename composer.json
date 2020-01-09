@@ -27,7 +27,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "DevMcC\\PackageDev\\Test\\": "tests/Unit"
+            "DevMcC\\PackageDev\\Test\\Unit\\": "tests/Unit"
         }
     },
     "bin": [

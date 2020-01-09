@@ -1,6 +1,6 @@
 <?php
 
-namespace DevMcC\PackageDev\Test\CommandArgument;
+namespace DevMcC\PackageDev\Test\Unit\CommandArgument;
 
 use DevMcC\PackageDev\CommandArgument\CommandOptionalArgument;
 use DevMcC\PackageDev\CommandArgument\ProcessArguments;
