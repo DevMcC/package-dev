@@ -1,8 +1,8 @@
 <?php
 
-namespace DevMcC\PackageDev\Test\Unit\Core\Autoloading;
+namespace DevMcC\PackageDev\Test\Unit\Core;
 
-use DevMcC\PackageDev\Core\Autoloading\ClassLoader;
+use DevMcC\PackageDev\Core\ClassLoader;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 

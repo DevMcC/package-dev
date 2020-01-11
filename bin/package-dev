@@ -1,28 +1,4 @@
 #!/usr/bin/env php
 <?php
 
-require_once __DIR__ . '/../src/Core/Autoloading/autoload.php';
-
-use DevMcC\PackageDev\CommandArgument\ProcessArguments;
-use DevMcC\PackageDev\Core\Autoloading\DependencyInjection;
-use DevMcC\PackageDev\Core\CommandHandler;
-use DevMcC\PackageDev\Environment\RootDirectory;
-use DevMcC\PackageDev\Exception\TerminateCommand;
-
-$dependencyInjection = new DependencyInjection(
-    new ProcessArguments($argv),
-    new RootDirectory(getcwd())
-);
-
-/**
- * @var CommandHandler $commandHandler
- */
-$commandHandler = $dependencyInjection->resolveClassName(CommandHandler::class);
-
-try {
-    $commandHandler->handle();
-} catch (TerminateCommand $e) {
-    exit(1);
-}
-
-exit(0);
+require_once __DIR__ . '/../src/bootstrap/index.php';

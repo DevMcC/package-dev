@@ -4,13 +4,13 @@ namespace DevMcC\PackageDev\Test\Unit\Environment;
 
 use DevMcC\PackageDev\Environment\FileSystem;
 use DevMcC\PackageDev\Environment\RootDirectory;
-use PHPUnit\Framework\TestCase;
+use DevMcC\PackageDev\Test\Unit\FileSystemTestCase;
 
 /**
  * The link functions are seperately tested we are not able to test link functions through vfsStream.
  * Files are created in the tmp directory and will always try to clean up the mess.
  */
-class FileSystemLinkFunctionsTest extends TestCase
+class FileSystemLinkFunctionsTest extends FileSystemTestCase
 {
     /** @var RootDirectory $rootDirectoryStub */
     private $rootDirectoryStub;
@@ -18,32 +18,13 @@ class FileSystemLinkFunctionsTest extends TestCase
     /** @var FileSystem $fileSystem */
     private $fileSystem;
 
-    /** @var string $pathOfFileStub */
-    private $pathOfFileStub;
-    /** @var string $pathOfAsStub */
-    private $pathOfAsStub;
-
     protected function setUp(): void
     {
-        $this->rootDirectoryStub = new RootDirectory(sys_get_temp_dir());
+        $this->rootDirectoryStub = new RootDirectory(sys_get_temp_dir(), sys_get_temp_dir());
 
         $this->fileSystem = new FileSystem(
             $this->rootDirectoryStub
         );
-    }
-
-    protected function tearDown(): void
-    {
-        $paths = [$this->pathOfAsStub ?? '', $this->pathOfFileStub ?? ''];
-
-        foreach ($paths as $path) {
-            if ($path && file_exists($path)) {
-                unlink($path);
-            }
-        }
-
-        unset($this->pathOfAsStub);
-        unset($this->pathOfFileStub);
     }
 
     public function testDoesLinkExist(): void
@@ -52,7 +33,9 @@ class FileSystemLinkFunctionsTest extends TestCase
         list('as' => $stubPathOfAs) = $this->prepareLink(true);
 
         // Starting test.
-        $result = $this->fileSystem->doesLinkExist($stubPathOfAs);
+        $result = $this->fileSystem->doesLinkExist(
+            $this->basename($stubPathOfAs)
+        );
 
         // Assertion.
         $this->assertTrue($result);
@@ -64,7 +47,9 @@ class FileSystemLinkFunctionsTest extends TestCase
         list('as' => $stubPathOfAs) = $this->prepareLink(false);
 
         // Starting test.
-        $result = $this->fileSystem->doesLinkExist($stubPathOfAs);
+        $result = $this->fileSystem->doesLinkExist(
+            $this->basename($stubPathOfAs)
+        );
 
         // Assertion.
         $this->assertFalse($result);
@@ -76,11 +61,14 @@ class FileSystemLinkFunctionsTest extends TestCase
         list('file' => $stubPathOfFile, 'as' => $stubPathOfAs) = $this->prepareLink(false);
 
         // Starting test.
-        $result = $this->fileSystem->linkFileAs($stubPathOfFile, $stubPathOfAs);
+        $result = $this->fileSystem->linkFileAs(
+            $this->basename($stubPathOfFile),
+            $this->basename($stubPathOfAs)
+        );
 
         // Assertion.
         $this->assertTrue($result);
-        $this->assertTrue(is_link($this->pathOfAsStub));
+        $this->assertTrue(is_link($stubPathOfAs));
     }
 
     public function testLinkFileAsWhenUnableToLinkFile(): void
@@ -89,7 +77,10 @@ class FileSystemLinkFunctionsTest extends TestCase
         list('file' => $stubPathOfFile, 'as' => $stubPathOfAs) = $this->prepareLink(true);
 
         // Starting test.
-        $result = $this->fileSystem->linkFileAs($stubPathOfFile, $stubPathOfAs);
+        $result = $this->fileSystem->linkFileAs(
+            $this->basename($stubPathOfFile),
+            $this->basename($stubPathOfAs)
+        );
 
         // Assertion.
         $this->assertFalse($result);
@@ -102,45 +93,14 @@ class FileSystemLinkFunctionsTest extends TestCase
      */
     private function prepareLink(bool $createLink): array
     {
-        $filePath = $this->pathOfFileStub = $this->randomPath('file');
+        $filePath = $this->pathForFile(true);
+        $linkPath = $this->pathForLink($createLink ? $filePath : null);
 
-        $result = @touch($filePath);
-
-        if (!$result) {
-            $this->fail('Failed to create temporary file.');
-        }
-
-        $linkPath = $this->pathOfAsStub = $this->randomPath('link');
-
-        if ($createLink) {
-            $result = symlink($filePath, $linkPath);
-
-            if (!$result) {
-                $this->fail('Failed to create temporary link.');
-            }
-        }
-
-        return [
-            'file' => pathinfo($filePath)['filename'],
-            'as' => pathinfo($linkPath)['filename'],
-        ];
+        return ['file' => $filePath, 'as' => $linkPath];
     }
 
-    private function randomPath(string $prefix): string
+    protected function randomPath(string $prefix): string
     {
-        while (true) {
-            $path = sprintf(
-                '%s/%s__fsl_test_%s',
-                sys_get_temp_dir(),
-                $prefix,
-                md5((string)rand())
-            );
-
-            if (file_exists($path)) {
-                continue;
-            }
-
-            return $path;
-        }
+        return parent::randomPath($prefix . '__fslft');
     }
 }

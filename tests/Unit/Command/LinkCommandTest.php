@@ -54,7 +54,7 @@ class LinkCommandTest extends TestCase
         $this->outputMock
             ->expects($this->once())
             ->method('line')
-            ->with('Package ' . $stubPackage . ' has been linked');
+            ->with('Package "' . $stubPackage . '" has been linked');
 
         // Starting test.
         $this->command->handle();

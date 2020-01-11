@@ -18,8 +18,8 @@
     * [x] src\CommandArgument\PackageArgument.php
     * [x] src\CommandArgument\ProcessArguments.php
     * [x] src\Config\CommandMapping.php
-    * [x] src\Core\Autoloading\ClassLoader.php
-    * [x] src\Core\Autoloading\DependencyInjection.php
+    * [x] src\Core\ClassLoader.php
+    * [x] src\Core\DependencyInjection.php
     * [x] src\Core\CommandHandler.php
     * [x] src\Core\Output.php
     * [x] src\Environment\Environment.php
@@ -38,6 +38,8 @@
 * [ ] phar
     * [ ] test run in scripts
     * [ ] unit test
+* [ ] unit tests that are testing Output
+* [x] combine FS tests
 * [ ] other
     * [ ] unit test intelephense fix
     * [ ] phpstan

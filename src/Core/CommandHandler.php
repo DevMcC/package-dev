@@ -3,7 +3,7 @@
 namespace DevMcC\PackageDev\Core;
 
 use DevMcC\PackageDev\Config\CommandMapping;
-use DevMcC\PackageDev\Core\Autoloading\DependencyInjection;
+use DevMcC\PackageDev\Core\DependencyInjection;
 use DevMcC\PackageDev\Exception\Command\CommandNotFound;
 use DevMcC\PackageDev\Exception\Command\CommandWasNotSupplied;
 use DevMcC\PackageDev\Exception\Command\TerminateCommand;

@@ -1,18 +1,18 @@
 <?php
 
-namespace DevMcC\PackageDev\Test\Unit\Core\Autoloading;
+namespace DevMcC\PackageDev\Test\Unit\Core;
 
 use DevMcC\PackageDev\CommandArgument\ProcessArguments;
-use DevMcC\PackageDev\Core\Autoloading\DependencyInjection;
+use DevMcC\PackageDev\Core\DependencyInjection;
 use DevMcC\PackageDev\Environment\RootDirectory;
-use DevMcC\PackageDev\Test\Unit\Stub\Core\Autoloading\DIStubTreeA;
-use DevMcC\PackageDev\Test\Unit\Stub\Core\Autoloading\DIStubTreeAA;
-use DevMcC\PackageDev\Test\Unit\Stub\Core\Autoloading\DIStubTreeAAA;
-use DevMcC\PackageDev\Test\Unit\Stub\Core\Autoloading\DIStubTreeAAB;
-use DevMcC\PackageDev\Test\Unit\Stub\Core\Autoloading\DIStubTreeAB;
-use DevMcC\PackageDev\Test\Unit\Stub\Core\Autoloading\DIStubTreeABA;
-use DevMcC\PackageDev\Test\Unit\Stub\Core\Autoloading\DIStubTreeABB;
-use DevMcC\PackageDev\Test\Unit\Stub\Core\Autoloading\DIStubTreeABBA;
+use DevMcC\PackageDev\Test\Unit\Stub\Core\DependencyInjectionTest\DIStubTreeA;
+use DevMcC\PackageDev\Test\Unit\Stub\Core\DependencyInjectionTest\DIStubTreeAA;
+use DevMcC\PackageDev\Test\Unit\Stub\Core\DependencyInjectionTest\DIStubTreeAAA;
+use DevMcC\PackageDev\Test\Unit\Stub\Core\DependencyInjectionTest\DIStubTreeAAB;
+use DevMcC\PackageDev\Test\Unit\Stub\Core\DependencyInjectionTest\DIStubTreeAB;
+use DevMcC\PackageDev\Test\Unit\Stub\Core\DependencyInjectionTest\DIStubTreeABA;
+use DevMcC\PackageDev\Test\Unit\Stub\Core\DependencyInjectionTest\DIStubTreeABB;
+use DevMcC\PackageDev\Test\Unit\Stub\Core\DependencyInjectionTest\DIStubTreeABBA;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

@@ -7,7 +7,7 @@ use DevMcC\PackageDev\Command\HelpCommand;
 use DevMcC\PackageDev\Command\InitCommand;
 use DevMcC\PackageDev\CommandArgument\ProcessArguments;
 use DevMcC\PackageDev\Config\CommandMapping;
-use DevMcC\PackageDev\Core\Autoloading\DependencyInjection;
+use DevMcC\PackageDev\Core\DependencyInjection;
 use DevMcC\PackageDev\Core\CommandHandler;
 use DevMcC\PackageDev\Core\Output;
 use DevMcC\PackageDev\Exception\Command\TerminateCommand;

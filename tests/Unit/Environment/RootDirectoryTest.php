@@ -10,11 +10,13 @@ class RootDirectoryTest extends TestCase
     public function testGetters(): void
     {
         $stubRootDirectory = 'testing';
+        $stubPackageDevRootDirectory = 'TEST';
 
         // Starting test.
-        $result = new RootDirectory($stubRootDirectory);
+        $result = new RootDirectory($stubRootDirectory, $stubPackageDevRootDirectory);
 
         // Assertion.
         $this->assertSame($stubRootDirectory, $result->rootDirectory());
+        $this->assertSame($stubPackageDevRootDirectory, $result->packageDevRootDirectory());
     }
 }

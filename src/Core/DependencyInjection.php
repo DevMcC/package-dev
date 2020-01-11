@@ -1,6 +1,6 @@
 <?php
 
-namespace DevMcC\PackageDev\Core\Autoloading;
+namespace DevMcC\PackageDev\Core;
 
 use DevMcC\PackageDev\CommandArgument\ProcessArguments;
 use DevMcC\PackageDev\Environment\RootDirectory;

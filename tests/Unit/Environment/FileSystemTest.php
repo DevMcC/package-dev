@@ -25,7 +25,7 @@ class FileSystemTest extends TestCase
         $this->vfs = vfsStream::setup();
 
         $this->fileSystem = new FileSystem(
-            new RootDirectory($this->vfs->url())
+            new RootDirectory($this->vfs->url(), $this->vfs->url())
         );
     }
 
