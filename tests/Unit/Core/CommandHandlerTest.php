@@ -51,7 +51,7 @@ class CommandHandlerTest extends TestCase
     public function testHandle(): void
     {
         $stubCommandName = 'test123';
-        $stubCommandClassName = CommandHandlerTestCommand::class;
+        $stubCommandClassName = 'TestCommand';
         $commandMock = $this->createMock(Command::class);
 
         // Assertion.
@@ -191,7 +191,7 @@ class CommandHandlerTest extends TestCase
     public function testHandleWhenExceptionThrowsTerminateCommand(): void
     {
         $stubCommandName = 'test123';
-        $stubCommandClassName = CommandHandlerTestCommand::class;
+        $stubCommandClassName = 'TestCommand';
         $stubException = new Exception('test good');
         $commandMock = $this->createMock(Command::class);
 
