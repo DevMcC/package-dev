@@ -29,39 +29,26 @@ class InitCommandTest extends TestCase
         );
     }
 
-    public function testHandleWhenInitializeReturnsTrue(): void
+    /**
+     * @dataProvider initializeEnvironmentDataProvider
+     */
+    public function testHandle(bool $stubHasBeenInitialized): void
     {
         // Assertion.
         $this->environmentMock
             ->expects($this->once())
             ->method('initialize')
-            ->willReturn(true);
-
-        // Assertion.
-        $this->outputMock
-            ->expects($this->once())
-            ->method('line')
-            ->with('Environment has been initialized');
+            ->willReturn($stubHasBeenInitialized);
 
         // Starting test.
         $this->command->handle();
     }
 
-    public function testHandleWhenInitializeReturnsFalse(): void
+    public function initializeEnvironmentDataProvider(): array
     {
-        // Assertion.
-        $this->environmentMock
-            ->expects($this->once())
-            ->method('initialize')
-            ->willReturn(false);
-
-        // Assertion.
-        $this->outputMock
-            ->expects($this->once())
-            ->method('line')
-            ->with('Environment was already initialized');
-
-        // Starting test.
-        $this->command->handle();
+        return [
+            [true],
+            [false],
+        ];
     }
 }

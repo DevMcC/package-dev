@@ -36,12 +36,6 @@ class SymlinkRemoveCommandTest extends TestCase
             ->expects($this->once())
             ->method('removeSymlinks');
 
-        // Assertion.
-        $this->outputMock
-            ->expects($this->once())
-            ->method('line')
-            ->with('All symlinks have been Removed');
-
         // Starting test.
         $this->command->handle();
     }

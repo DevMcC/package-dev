@@ -50,12 +50,6 @@ class UnlinkCommandTest extends TestCase
             ->method('unlink')
             ->with($stubPackage);
 
-        // Assertion.
-        $this->outputMock
-            ->expects($this->once())
-            ->method('line')
-            ->with('Package "' . $stubPackage . '" has been unlinked');
-
         // Starting test.
         $this->command->handle();
     }

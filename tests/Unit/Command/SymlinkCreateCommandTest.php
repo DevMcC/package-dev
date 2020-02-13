@@ -36,12 +36,6 @@ class SymlinkCreateCommandTest extends TestCase
             ->expects($this->once())
             ->method('createSymlinks');
 
-        // Assertion.
-        $this->outputMock
-            ->expects($this->once())
-            ->method('line')
-            ->with('All symlinks have been created');
-
         // Starting test.
         $this->command->handle();
     }
