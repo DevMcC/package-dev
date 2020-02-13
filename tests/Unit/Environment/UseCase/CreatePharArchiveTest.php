@@ -18,6 +18,7 @@ class CreatePharArchiveTest extends FileSystemTestCase
 
     protected function setUp(): void
     {
+        /** @var MockObject|FileSystem */
         $this->fileSystemMock = $this->createMock(FileSystem::class);
 
         $this->useCase = new CreatePharArchive(

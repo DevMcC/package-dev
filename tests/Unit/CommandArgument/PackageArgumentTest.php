@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class PackageArgumentTest extends TestCase
 {
-    /** @var MockObject&ProcessArguments $processArgumentsMock */
+    /** @var MockObject|ProcessArguments $processArgumentsMock */
     private $processArgumentsMock;
 
     protected function setUp(): void

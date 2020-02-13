@@ -10,9 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 class EnvironmentTest extends TestCase
 {
-    /** @var MockObject&PackageManagement $packageManagementMock */
+    /** @var MockObject|PackageManagement $packageManagementMock */
     private $packageManagementMock;
-    /** @var MockObject&PackagesFile $packagesFileMock */
+    /** @var MockObject|PackagesFile $packagesFileMock */
     private $packagesFileMock;
 
     /** @var Environment $environment */
@@ -20,7 +20,9 @@ class EnvironmentTest extends TestCase
 
     protected function setUp(): void
     {
+        /** @var MockObject|PackageManagement */
         $this->packageManagementMock = $this->createMock(PackageManagement::class);
+        /** @var MockObject|PackagesFile */
         $this->packagesFileMock = $this->createMock(PackagesFile::class);
 
         $this->environment = new Environment(

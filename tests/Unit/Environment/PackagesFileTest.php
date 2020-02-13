@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class PackagesFileTest extends TestCase
 {
-    /** @var MockObject&FileSystem $fileSystemMock */
+    /** @var MockObject|FileSystem $fileSystemMock */
     private $fileSystemMock;
 
     /** @var PackagesFile $packagesFile */
@@ -22,6 +22,7 @@ class PackagesFileTest extends TestCase
 
     protected function setUp(): void
     {
+        /** @var MockObject|FileSystem */
         $this->fileSystemMock = $this->createMock(FileSystem::class);
 
         $this->packagesFile = new PackagesFile(

@@ -10,9 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 class InitCommandTest extends TestCase
 {
-    /** @var MockObject&Environment $environmentMock */
+    /** @var MockObject|Environment $environmentMock */
     private $environmentMock;
-    /** @var MockObject&Output $outputMock */
+    /** @var MockObject|Output $outputMock */
     private $outputMock;
 
     /** @var InitCommand $command */
@@ -20,7 +20,9 @@ class InitCommandTest extends TestCase
 
     protected function setUp(): void
     {
+        /** @var MockObject|Environment */
         $this->environmentMock = $this->createMock(Environment::class);
+        /** @var MockObject|Output */
         $this->outputMock = $this->createMock(Output::class);
 
         $this->command = new InitCommand(

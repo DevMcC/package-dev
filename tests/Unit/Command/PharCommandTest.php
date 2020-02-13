@@ -31,9 +31,13 @@ class PharCommandTest extends TestCase
 
     protected function setUp(): void
     {
+        /** @var MockObject|CreatePharArchive */
         $this->createPharArchiveMock = $this->createMock(CreatePharArchive::class);
+        /** @var MockObject|FileSystem */
         $this->fileSystemMock = $this->createMock(FileSystem::class);
+        /** @var MockObject|RootDirectory */
         $this->rootDirectoryMock = $this->createMock(RootDirectory::class);
+        /** @var MockObject|Output */
         $this->outputMock = $this->createMock(Output::class);
 
         $this->command = new PharCommand(

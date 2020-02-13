@@ -20,13 +20,13 @@ use PHPUnit\Framework\TestCase;
 
 class PackageManagementTest extends TestCase
 {
-    /** @var MockObject&FileSystem $fileSystemMock */
+    /** @var MockObject|FileSystem $fileSystemMock */
     private $fileSystemMock;
-    /** @var MockObject&GetVendorPathFromPackage $getVendorPathFromPackageMock */
+    /** @var MockObject|GetVendorPathFromPackage $getVendorPathFromPackageMock */
     private $getVendorPathFromPackageMock;
-    /** @var MockObject&CreateSymlinkForPackagePath $createSymlinkForPackagePathMock */
+    /** @var MockObject|CreateSymlinkForPackagePath $createSymlinkForPackagePathMock */
     private $createSymlinkForPackagePathMock;
-    /** @var MockObject&RemoveSymlinkFromPackagePath $removeSymlinkFromPackagePathMock */
+    /** @var MockObject|RemoveSymlinkFromPackagePath $removeSymlinkFromPackagePathMock */
     private $removeSymlinkFromPackagePathMock;
 
     /** @var PackageManagement $packageManagement */
@@ -34,9 +34,13 @@ class PackageManagementTest extends TestCase
 
     protected function setUp(): void
     {
+        /** @var MockObject|FileSystem */
         $this->fileSystemMock = $this->createMock(FileSystem::class);
+        /** @var MockObject|GetVendorPathFromPackage */
         $this->getVendorPathFromPackageMock = $this->createMock(GetVendorPathFromPackage::class);
+        /** @var MockObject|CreateSymlinkForPackagePath */
         $this->createSymlinkForPackagePathMock = $this->createMock(CreateSymlinkForPackagePath::class);
+        /** @var MockObject|RemoveSymlinkFromPackagePath */
         $this->removeSymlinkFromPackagePathMock = $this->createMock(RemoveSymlinkFromPackagePath::class);
 
         $this->packageManagement = new PackageManagement(

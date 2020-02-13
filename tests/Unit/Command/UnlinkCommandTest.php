@@ -11,11 +11,11 @@ use PHPUnit\Framework\TestCase;
 
 class UnlinkCommandTest extends TestCase
 {
-    /** @var MockObject&PackageArgument $packageArgumentMock */
+    /** @var MockObject|PackageArgument $packageArgumentMock */
     private $packageArgumentMock;
-    /** @var MockObject&Environment $environmentMock */
+    /** @var MockObject|Environment $environmentMock */
     private $environmentMock;
-    /** @var MockObject&Output $outputMock */
+    /** @var MockObject|Output $outputMock */
     private $outputMock;
 
     /** @var UnlinkCommand $command */
@@ -23,8 +23,11 @@ class UnlinkCommandTest extends TestCase
 
     protected function setUp(): void
     {
+        /** @var MockObject|PackageArgument */
         $this->packageArgumentMock = $this->createMock(PackageArgument::class);
+        /** @var MockObject|Environment */
         $this->environmentMock = $this->createMock(Environment::class);
+        /** @var MockObject|Output */
         $this->outputMock = $this->createMock(Output::class);
 
         $this->command = new UnlinkCommand(

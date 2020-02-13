@@ -17,13 +17,13 @@ use PHPUnit\Framework\TestCase;
 
 class CommandHandlerTest extends TestCase
 {
-    /** @var MockObject&ProcessArguments $processArgumentsMock */
+    /** @var MockObject|ProcessArguments $processArgumentsMock */
     private $processArgumentsMock;
-    /** @var MockObject&CommandMapping $commandMappingMock */
+    /** @var MockObject|CommandMapping $commandMappingMock */
     private $commandMappingMock;
-    /** @var MockObject&DependencyInjection $dependencyInjectionMock */
+    /** @var MockObject|DependencyInjection $dependencyInjectionMock */
     private $dependencyInjectionMock;
-    /** @var MockObject&Output $outputMock */
+    /** @var MockObject|Output $outputMock */
     private $outputMock;
 
     /** @var CommandHandler $commandHandler */
@@ -31,9 +31,13 @@ class CommandHandlerTest extends TestCase
 
     protected function setUp(): void
     {
+        /** @var MockObject|ProcessArguments */
         $this->processArgumentsMock = $this->createMock(ProcessArguments::class);
+        /** @var MockObject|CommandMapping */
         $this->commandMappingMock = $this->createMock(CommandMapping::class);
+        /** @var MockObject|DependencyInjection */
         $this->dependencyInjectionMock = $this->createMock(DependencyInjection::class);
+        /** @var MockObject|Output */
         $this->outputMock = $this->createMock(Output::class);
 
         $this->commandHandler = new CommandHandler(

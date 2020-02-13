@@ -28,7 +28,9 @@ class DependencyInjectionTest extends TestCase
 
     protected function setUp(): void
     {
+        /** @var MockObject|ProcessArguments */
         $this->processArgumentsMock = $this->createMock(ProcessArguments::class);
+        /** @var MockObject|RootDirectory */
         $this->rootDirectoryMock = $this->createMock(RootDirectory::class);
 
         $this->di = new DependencyInjection(

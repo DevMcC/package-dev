@@ -41,10 +41,11 @@
     * [x] unit test
     * [x] test autoloading
     * [x] test run in scripts
-* [ ] unit tests that are testing Output
+* [x] unit tests that are testing Output
 * [x] combine FS tests
+* [x] unit test intelephense fix & MockObject|
+* [ ] fix CommandHandlerTest
 * [ ] other
-    * [ ] unit test intelephense fix
     * [ ] phpstan
     * [ ] code coverage
     * [ ] integration test?

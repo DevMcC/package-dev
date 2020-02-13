@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class GetVendorPathFromPackageTest extends TestCase
 {
-    /** @var MockObject&FileSystem $fileSystemMock */
+    /** @var MockObject|FileSystem $fileSystemMock */
     private $fileSystemMock;
 
     /** @var GetVendorPathFromPackage $useCase */
@@ -20,6 +20,7 @@ class GetVendorPathFromPackageTest extends TestCase
 
     public function setUp(): void
     {
+        /** @var MockObject|FileSystem */
         $this->fileSystemMock = $this->createMock(FileSystem::class);
 
         $this->useCase = new GetVendorPathFromPackage(
