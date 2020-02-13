@@ -12,6 +12,8 @@ class Environment
     public const PACKAGE_LINK_PREFIX = '../../packages/';
     public const VENDOR_DIRECTORY_PATH = 'vendor/';
 
+    public const PHAR_ARCHIVE_NAME = 'package-dev.phar';
+
     /** @var PackageManagement $packageManagement */
     private $packageManagement;
     /** @var PackagesFile $packagesFile */

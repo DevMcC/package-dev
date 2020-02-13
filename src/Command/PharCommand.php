@@ -3,9 +3,11 @@
 namespace DevMcC\PackageDev\Command;
 
 use DevMcC\PackageDev\Core\Output;
+use DevMcC\PackageDev\Environment\Environment;
 use DevMcC\PackageDev\Environment\FileSystem;
 use DevMcC\PackageDev\Environment\RootDirectory;
 use DevMcC\PackageDev\Environment\UseCase\CreatePharArchive;
+use DevMcC\PackageDev\Exception\Environment\PharArchiveAlreadyExists;
 use DevMcC\PackageDev\Exception\Environment\UnableToCreatePharArchive;
 use PharException;
 
@@ -14,8 +16,6 @@ class PharCommand implements Command
     public const COMMAND_NAME = 'phar';
     public const COMMAND_USAGE = 'package-dev phar';
     public const COMMAND_DESCRIPTION = 'Dumps PackageDev into a .phar archive.';
-
-    private const PHAR_ARCHIVE_NAME = 'package-dev.phar';
 
     /** @var CreatePharArchive $createPharArchive */
     private $createPharArchive;
@@ -40,26 +40,32 @@ class PharCommand implements Command
 
     public function handle(): void
     {
-        $this->clearExistingArchive();
+        $this->protectExistingArchive();
         $this->createNewArchive();
 
-        $this->output->line(sprintf('%s was successfully created.', self::PHAR_ARCHIVE_NAME));
+        $this->output->line(sprintf('%s was successfully created', Environment::PHAR_ARCHIVE_NAME));
     }
 
-    private function clearExistingArchive(): void
+    /**
+     * @throws PharArchiveAlreadyExists
+     */
+    private function protectExistingArchive(): void
     {
-        if ($this->fileSystem->doesFileExist(self::PHAR_ARCHIVE_NAME)) {
-            $this->fileSystem->deleteFile(self::PHAR_ARCHIVE_NAME);
+        if ($this->fileSystem->doesFileExist(Environment::PHAR_ARCHIVE_NAME)) {
+            throw new PharArchiveAlreadyExists(Environment::PHAR_ARCHIVE_NAME);
         }
     }
 
+    /**
+     * @throws UnableToCreatePharArchive
+     */
     private function createNewArchive(): void
     {
         try {
-            $phar = $this->createPharArchive->execute(self::PHAR_ARCHIVE_NAME);
+            $phar = $this->createPharArchive->execute(Environment::PHAR_ARCHIVE_NAME);
             $phar->startBuffering();
-            $phar->buildFromDirectory($this->rootDirectory->packageDevRootDirectory() . '/src');
-            $phar->setStub("#!/usr/bin/env php\n" . $phar->createDefaultStub('./index.php'));
+            $phar->buildFromDirectory($this->rootDirectory->packageDevSrcDirectory());
+            $phar->setStub("#!/usr/bin/env php\n" . $phar->getStub());
             $phar->stopBuffering();
         } catch (PharException $e) {
             throw new UnableToCreatePharArchive();

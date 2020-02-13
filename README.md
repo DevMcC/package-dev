@@ -35,16 +35,19 @@
 * [x] restructure exceptions
     * [x] better message constants
 * [x] stub prefix for shared values in unit tests
-* [ ] phar
-    * [ ] test run in scripts
-    * [ ] unit test
+* [x] phar
+    * [x] fix error
+    * [x] do not clear existing archive
+    * [x] unit test
+    * [x] test autoloading
+    * [x] test run in scripts
 * [ ] unit tests that are testing Output
 * [x] combine FS tests
 * [ ] other
     * [ ] unit test intelephense fix
     * [ ] phpstan
     * [ ] code coverage
-    * [ ] integration test
+    * [ ] integration test?
 * [ ] complete testing
 * [ ] configure pipeline for github
 * [ ] finish README

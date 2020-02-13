@@ -6,13 +6,13 @@ class RootDirectory
 {
     /** @var string $rootDirectory */
     private $rootDirectory;
-    /** @var string $packageDevRootDirectory */
-    private $packageDevRootDirectory;
+    /** @var string $packageDevSrcDirectory */
+    private $packageDevSrcDirectory;
 
-    public function __construct(string $rootDirectory, string $packageDevRootDirectory)
+    public function __construct(string $rootDirectory, string $packageDevSrcDirectory)
     {
         $this->rootDirectory = $rootDirectory;
-        $this->packageDevRootDirectory = $packageDevRootDirectory;
+        $this->packageDevSrcDirectory = $packageDevSrcDirectory;
     }
 
     public function rootDirectory(): string
@@ -20,8 +20,8 @@ class RootDirectory
         return $this->rootDirectory;
     }
 
-    public function packageDevRootDirectory(): string
+    public function packageDevSrcDirectory(): string
     {
-        return $this->packageDevRootDirectory;
+        return $this->packageDevSrcDirectory;
     }
 }
