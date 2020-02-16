@@ -44,7 +44,7 @@
 * [x] unit tests that are testing Output
 * [x] combine FS tests
 * [x] unit test intelephense fix & MockObject|
-* [ ] fix CommandHandlerTest
+* [x] fix CommandHandlerTest
 * [ ] other
     * [ ] phpstan
     * [ ] code coverage
@@ -56,3 +56,4 @@
 # Tests
 After you have cloned the repo and installed all dependencies you can do the following:
 * Run unit tests with: `vendor/bin/phpunit`
+* Run code analysis with: `vendor/bin/phpstan analyse src tests`

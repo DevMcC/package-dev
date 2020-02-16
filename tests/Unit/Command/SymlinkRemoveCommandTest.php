@@ -20,7 +20,9 @@ class SymlinkRemoveCommandTest extends TestCase
 
     protected function setUp(): void
     {
+        /** @var MockObject|Environment */
         $this->environmentMock = $this->createMock(Environment::class);
+        /** @var MockObject|Output */
         $this->outputMock = $this->createMock(Output::class);
 
         $this->command = new SymlinkRemoveCommand(
