@@ -46,14 +46,14 @@
 * [x] unit test intelephense fix & MockObject|
 * [x] fix CommandHandlerTest
 * [ ] other
-    * [ ] phpstan
+    * [x] phpstan
     * [ ] code coverage
     * [ ] integration test?
 * [ ] complete testing
 * [ ] configure pipeline for github
 * [ ] finish README
 
-# Tests
+# Contributing
 After you have cloned the repo and installed all dependencies you can do the following:
-* Run unit tests with: `vendor/bin/phpunit`
-* Run code analysis with: `vendor/bin/phpstan analyse src tests`
+* Run unit tests with `vendor/bin/phpunit`
+* Run code analysis with `vendor/bin/phpstan analyse src tests --level max`
