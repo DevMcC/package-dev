@@ -4,11 +4,12 @@ namespace DevMcC\PackageDev\Core;
 
 use DevMcC\PackageDev\CommandArgument\ProcessArguments;
 use DevMcC\PackageDev\Environment\RootDirectory;
+use DevMcC\PackageDev\Exception\Core\NonInjectableParameter;
 use ReflectionMethod;
 
 class DependencyInjection
 {
-    /** @var array $resolvedClassNames */
+    /** @var object[] $resolvedClassNames */
     private $resolvedClassNames = [];
 
     public function __construct(
@@ -35,6 +36,11 @@ class DependencyInjection
         return $resolvedClassName;
     }
 
+    /**
+     * @return object[]
+     *
+     * @throws NonInjectableParameter
+     */
     private function resolveDependencyTree(string $className): array
     {
         if (!method_exists($className, '__construct')) {
@@ -50,7 +56,13 @@ class DependencyInjection
         $dependencies = [];
 
         foreach ($parameters as $parameter) {
-            $dependencies[] = $this->resolveClassName($parameter->getClass()->name);
+            $reflectionClass = $parameter->getClass();
+
+            if (!$reflectionClass) {
+                throw new NonInjectableParameter($className, $parameter->getName());
+            }
+
+            $dependencies[] = $this->resolveClassName($reflectionClass->name);
         }
 
         return $dependencies;

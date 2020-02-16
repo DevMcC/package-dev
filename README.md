@@ -47,6 +47,11 @@
 * [x] fix CommandHandlerTest
 * [ ] other
     * [x] phpstan
+    * [ ] add tests for:
+        * [ ] NonInjectableParameter
+        * [ ] CommandNotFound null
+        * [ ] InvalidPackageName null
+        * [ ] UnableToWriteToPackagesFile false
     * [ ] code coverage
     * [ ] integration test?
 * [ ] complete testing

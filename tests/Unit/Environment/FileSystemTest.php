@@ -95,7 +95,7 @@ class FileSystemTest extends TestCase
     {
         // Preparing test.
         $stubPath = $this->pathForFile(false);
-        $this->vfs->chmod('0000');
+        $this->vfs->chmod(0000);
 
         // Starting test.
         $result = $this->fileSystem->createFile($stubPath);
@@ -123,7 +123,7 @@ class FileSystemTest extends TestCase
     {
         // Preparing test.
         $stubPath = $this->pathForDirectory(false);
-        $this->vfs->chmod('0000');
+        $this->vfs->chmod(0000);
 
         // Starting test.
         $result = $this->fileSystem->createDirectory($stubPath);
@@ -191,7 +191,7 @@ class FileSystemTest extends TestCase
 
         /** @var vfsStreamFile $stubFile */
         $stubFile = $this->vfs->getChild($stubPath);
-        $stubFile->chmod('0000');
+        $stubFile->chmod(0000);
 
         // Starting test.
         $result = $this->fileSystem->writeToFile($stubPath, $stubNewContent);
@@ -218,7 +218,7 @@ class FileSystemTest extends TestCase
     {
         // Preparing test.
         $stubPath = $this->pathForFile(true);
-        $this->vfs->chmod('0000');
+        $this->vfs->chmod(0000);
 
         // Starting test.
         $result = $this->fileSystem->deleteFile($stubPath);
@@ -248,7 +248,7 @@ class FileSystemTest extends TestCase
         // Preparing test.
         $stubPath = $this->pathForFile(true);
         $stubNewPath = $this->pathForFile(false);
-        $this->vfs->chmod('0000');
+        $this->vfs->chmod(0000);
 
         // Starting test.
         $result = $this->fileSystem->moveFileTo($stubPath, $stubNewPath);
@@ -300,6 +300,9 @@ class FileSystemTest extends TestCase
         }
     }
 
+    /**
+     * @return array[]
+     */
     public function fileContentDataProvider(): array
     {
         return [

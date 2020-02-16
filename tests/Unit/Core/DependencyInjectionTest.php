@@ -83,6 +83,9 @@ class DependencyInjectionTest extends TestCase
         $this->assertTrue($firstResolve === $secondResolve, 'Failed asserting that the same object was resolved.');
     }
 
+    /**
+     * @return array[]
+     */
     public function builtInClassesDataProvider(): array
     {
         return [

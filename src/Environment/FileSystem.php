@@ -53,7 +53,9 @@ class FileSystem
 
     public function writeToFile(string $file, string $content): bool
     {
-        return @file_put_contents($this->rootPathOfFile($file), $content);
+        $result = @file_put_contents($this->rootPathOfFile($file), $content);
+
+        return $result !== false ? true : false;
     }
 
     // Delete.

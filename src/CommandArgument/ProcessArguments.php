@@ -4,11 +4,14 @@ namespace DevMcC\PackageDev\CommandArgument;
 
 class ProcessArguments
 {
-    /** @var string $command */
+    /** @var string|null $command */
     private $command;
-    /** @var string $argument */
+    /** @var string|null $argument */
     private $argument;
 
+    /**
+     * @param string[]|null[] $arguments
+     */
     public function __construct(array $arguments)
     {
         $this->command = $this->parseArgument($arguments[1] ?? null);

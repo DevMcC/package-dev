@@ -12,6 +12,9 @@ use DevMcC\PackageDev\Command\UnlinkCommand;
 
 class CommandMapping
 {
+    /**
+     * @return string[]
+     */
     public function getMapping(): array
     {
         return [

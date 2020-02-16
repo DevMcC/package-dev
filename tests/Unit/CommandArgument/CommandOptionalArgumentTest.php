@@ -50,7 +50,7 @@ class CommandOptionalArgumentTest extends TestCase
         );
 
         // Assertions.
-        $this->assertSame(false, $result->commandWasNotSupplied());
+        $this->assertFalse($result->commandWasNotSupplied());
         $this->assertSame('test', $result->command());
     }
 
@@ -73,7 +73,7 @@ class CommandOptionalArgumentTest extends TestCase
         );
 
         // Assertions.
-        $this->assertSame(true, $result->commandWasNotSupplied());
+        $this->assertTrue($result->commandWasNotSupplied());
         $this->assertNull($result->command());
     }
 

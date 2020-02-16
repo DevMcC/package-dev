@@ -9,6 +9,8 @@ class ProcessArgumentsTest extends TestCase
 {
     /**
      * @dataProvider validProcessArgumentsDataProvider
+     *
+     * @param string[] $stubProcessArguments
      */
     public function testConstruct(array $stubProcessArguments): void
     {
@@ -24,9 +26,13 @@ class ProcessArgumentsTest extends TestCase
 
     /**
      * @dataProvider invalidCommandDataProvider
+     *
+     * @param string[]|null[] $stubProcessArguments
      */
     public function testConstructWhenCommandWasNotSupplied(array $stubProcessArguments): void
     {
+        $expectedArgument = trim((string) $stubProcessArguments[2]);
+
         // Starting test.
         $result = new ProcessArguments($stubProcessArguments);
 
@@ -34,26 +40,32 @@ class ProcessArgumentsTest extends TestCase
         $this->assertTrue($result->commandWasNotSupplied());
         $this->assertFalse($result->argumentWasNotSupplied());
         $this->assertNull($result->command());
-        $this->assertSame(trim($stubProcessArguments[2]), $result->argument());
+        $this->assertSame($expectedArgument, $result->argument());
     }
 
     /**
      * @dataProvider invalidArgumentDataProvider
+     *
+     * @param string[]|null[] $stubProcessArguments
      */
     public function testConstructWhenArgumentWasNotSupplied(array $stubProcessArguments): void
     {
+        $expectedCommand = trim((string) $stubProcessArguments[1]);
+
         // Starting test.
         $result = new ProcessArguments($stubProcessArguments);
 
         // Assertions.
         $this->assertFalse($result->commandWasNotSupplied());
         $this->assertTrue($result->argumentWasNotSupplied());
-        $this->assertSame(trim($stubProcessArguments[1]), $result->command());
+        $this->assertSame($expectedCommand, $result->command());
         $this->assertNull($result->argument());
     }
 
     /**
      * @dataProvider invalidProcessArgumentsDataProvider
+     *
+     * @param string[] $stubProcessArguments
      */
     public function testConstructWhenBothCommandAndArgumentAreNotSupplied(array $stubProcessArguments): void
     {
@@ -67,6 +79,9 @@ class ProcessArgumentsTest extends TestCase
         $this->assertNull($result->argument());
     }
 
+    /**
+     * @return array[]
+     */
     public function validProcessArgumentsDataProvider(): array
     {
         return [
@@ -76,6 +91,9 @@ class ProcessArgumentsTest extends TestCase
         ];
     }
 
+    /**
+     * @return array[]
+     */
     public function invalidCommandDataProvider(): array
     {
         return [
@@ -85,6 +103,9 @@ class ProcessArgumentsTest extends TestCase
         ];
     }
 
+    /**
+     * @return array[]
+     */
     public function invalidArgumentDataProvider(): array
     {
         return [
@@ -95,6 +116,9 @@ class ProcessArgumentsTest extends TestCase
         ];
     }
 
+    /**
+     * @return array[]
+     */
     public function invalidProcessArgumentsDataProvider(): array
     {
         return [

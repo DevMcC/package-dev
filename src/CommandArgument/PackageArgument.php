@@ -24,8 +24,8 @@ class PackageArgument
 
         $packageArgument = $processArguments->argument();
 
-        if (!preg_match(self::PATTERN_PACKAGE_NAME, $packageArgument)) {
-            throw new InvalidPackageName($packageArgument);
+        if (!$packageArgument || !preg_match(self::PATTERN_PACKAGE_NAME, $packageArgument)) {
+            throw new InvalidPackageName((string) $packageArgument);
         }
 
         $this->package = $packageArgument;

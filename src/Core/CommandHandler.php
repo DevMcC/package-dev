@@ -6,7 +6,7 @@ use DevMcC\PackageDev\Config\CommandMapping;
 use DevMcC\PackageDev\Core\DependencyInjection;
 use DevMcC\PackageDev\Exception\Command\CommandNotFound;
 use DevMcC\PackageDev\Exception\Command\CommandWasNotSupplied;
-use DevMcC\PackageDev\Exception\Command\TerminateCommand;
+use DevMcC\PackageDev\Exception\Core\TerminateCommand;
 use DevMcC\PackageDev\Command\Command;
 use DevMcC\PackageDev\CommandArgument\ProcessArguments;
 use Exception;
@@ -68,13 +68,18 @@ class CommandHandler
 
         $command = $this->processArguments->command();
 
-        if (!$this->commandMapping->commandExists($command)) {
-            throw new CommandNotFound($command);
+        if (!$command || !$this->commandMapping->commandExists($command)) {
+            throw new CommandNotFound((string) $command);
         }
 
         $commandClassName = $this->commandMapping->getMapping()[$command];
 
-        return $this->dependencyInjection->resolveClassName($commandClassName);
+        /**
+         * @var Command $command
+         */
+        $command = $this->dependencyInjection->resolveClassName($commandClassName);
+
+        return $command;
     }
 
     private function outputUsage(): void

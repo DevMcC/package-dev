@@ -58,6 +58,9 @@ STRING;
         $this->output->list($stubList);
     }
 
+    /**
+     * @return array[]
+     */
     public function linesDataProvider(): array
     {
         return [

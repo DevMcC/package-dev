@@ -3,8 +3,9 @@
 namespace DevMcC\PackageDev\Test\Unit\Core;
 
 use DevMcC\PackageDev\Core\ClassLoader;
-use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
+use org\bovigo\vfs\vfsStream;
+use org\bovigo\vfs\vfsStreamDirectory;
 
 class ClassLoaderTest extends TestCase
 {

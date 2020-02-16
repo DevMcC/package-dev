@@ -59,6 +59,9 @@ class CommandMappingTest extends TestCase
         $this->assertFalse($result);
     }
 
+    /**
+     * @return array[]
+     */
     public function existingCommandsDataProvider(): array
     {
         return array_map(

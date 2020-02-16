@@ -60,7 +60,7 @@ class PackagesFile
         $packageIndex = array_search($package, $packages);
 
         if ($packageIndex !== false) {
-            array_splice($packages, $packageIndex, 1);
+            array_splice($packages, (int) $packageIndex, 1);
 
             $this->write($packages);
         }
@@ -95,7 +95,10 @@ class PackagesFile
     {
         $content = json_encode([Environment::PACKAGES_KEY => $packages], JSON_PRETTY_PRINT);
 
-        if (!$this->fileSystem->writeToFile(Environment::PACKAGES_FILE_PATH, $content)) {
+        if (
+            !$content
+            || !$this->fileSystem->writeToFile(Environment::PACKAGES_FILE_PATH, $content)
+        ) {
             throw new UnableToWriteToPackagesFile;
         }
     }

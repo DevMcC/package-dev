@@ -97,6 +97,9 @@ class PackageArgumentTest extends TestCase
         );
     }
 
+    /**
+     * @return array[]
+     */
     public function validPackageNamesDataProvider(): array
     {
         return [
@@ -108,6 +111,9 @@ class PackageArgumentTest extends TestCase
         ];
     }
 
+    /**
+     * @return array[]
+     */
     public function invalidPackageNamesDataProvider(): array
     {
         return [

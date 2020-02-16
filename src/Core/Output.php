@@ -15,6 +15,9 @@ class Output
         echo $message . PHP_EOL;
     }
 
+    /**
+     * @param array[] $list
+     */
     public function list(array $list): void
     {
         $length = 0;

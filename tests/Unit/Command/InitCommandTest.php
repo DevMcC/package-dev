@@ -46,6 +46,9 @@ class InitCommandTest extends TestCase
         $this->command->handle();
     }
 
+    /**
+     * @return array[]
+     */
     public function initializeEnvironmentDataProvider(): array
     {
         return [
