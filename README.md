@@ -52,13 +52,16 @@
         * [x] CommandNotFound null
         * [x] InvalidPackageName null
         * [x] UnableToWriteToPackagesFile false
-    * [ ] code coverage
-    * [ ] integration test?
+    * [x] code coverage
+    * [ ] psr-2 testing?
+    * [x] integration test? / LATER
 * [ ] complete testing
-* [ ] configure pipeline for github
+* [x] configure pipeline for github / LATER
 * [ ] finish README
 
 # Testing
 After you have cloned the repo and installed all dependencies you can do the following:
 * Run unit tests with `vendor/bin/phpunit`
 * Run code analysis with `vendor/bin/phpstan analyse src tests --level max`
+* Run code coverage analysis with `vendor/bin/phpunit --coverage-html tmp/code-coverage`
+    * Then open tmp/code-coverage/index.html in your browser
