@@ -1,21 +1,4 @@
 #!/usr/bin/env php
 <?php
 
-if (!isset($argv[1])) {
-    echo "PackageDev is functioning properly.\n";
-    exit(0);
-}
-
-$pdRoot = __DIR__.'/../src/';
-$appBase = getcwd().'/';
-
-require_once($pdRoot.'Core/Main.php');
-
-try {
-    $main = new \DevMcC\PackageDev\Core\Main($appBase, $pdRoot);
-    $main->run();
-} catch (\Exception $e) {
-    exit(1);
-}
-
-exit(0);
+require_once __DIR__ . '/../src/index.php';

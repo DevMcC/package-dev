@@ -1,217 +1,94 @@
 # PackageDev
-Makes developing composer packages easier.
+A simple tool for developing Composer packages.
 
-
-
-# About
-This package comes with a set of commands that will support you in developing composer packages.  
-It makes use of junctions to link your package from the developing directory `packages` to the vendor directory. This allows you to make modifications to your package and test it immediately.  
-The package makes use of some [Composer Command Events](https://getcomposer.org/doc/articles/scripts.md#command-events) to secure the sourcecode of your package from `composer update` and `composer install`.
-
-
+PackageDev makes use of symlinks to make it seem as if the package you are developing is run in vendor.
+Thanks to this, you can make changes to your package and immediately check the results.
 
 # Installation
-Install this package with the following command:
+It is recommended to install PackageDev globally:
 ```
 composer global require devmcc/package-dev
 ```
 
-
-## Bin
-Add the global vendor binaries in your $PATH environment variable, more about that [here](https://getcomposer.org/doc/03-cli.md#global).
-
-
-## Command Events
-Assuming you know how to properly edit a json file and know something about [composer scripts](https://getcomposer.org/doc/articles/scripts.md), you have to make a few additions to your composer.json file.
-
-### pre-install-cmd
-```
-"package-dev junction:drop"
-```
-
-### pre-update-cmd
-```
-"package-dev junction:drop"
-```
-
-### post-install-cmd
-```
-"package-dev junction:make"
-```
-
-### post-update-cmd
-```
-"package-dev junction:make"
-```
-
-
-
-## Verify installation
-In order to verify the installation, you can run the following command:
-```
-package-dev
-```
-If everything has been installed correctly, you should receive the following message:
-```
->> PackageDev is functioning properly.
-```
-
-
-
-# Usage
-1. Initialize PackageDev;
-2. Add your package into `packages`;
-3. Link your package using the `Link` command;
-4. Develop your package!
-
-
-
-# Commands
-The following is a documentation about all available commands:
-
-
-## Init
-
-### Syntax
+After you have installed PackageDev, go to the root directory of the project that needs to use your package and run:
 ```
 package-dev init
 ```
 
-### Description
-Initializes the PackageDev environment in your current working directory.
-
-### Requirements
-* Your current working directory is a composer directory;
-* Read/write permissions in your current working directory.
-
-### Execution
-1. Checks requirements (including arguments);
-2. Attempts to create a `packages` directory in your current working directory;
-3. Attempts to create `package-dev.json` file in the `packages` directory.
-
-
-## Link
-
-### Syntax
-```
-package-dev link {package}
+Next, open up your project's `composer.json` file and add the following:
+```json
+"scripts": {
+    "pre-install-cmd": [
+        "package-dev symlink-remove"
+    ],
+    "pre-update-cmd": [
+        "package-dev symlink-remove"
+    ],
+    "post-install-cmd": [
+        "package-dev symlink-create"
+    ],
+    "post-update-cmd": [
+        "package-dev symlink-create"
+    ]
+}
 ```
 
-### Description
-Links {package} to the PackageDev environment and makes a junction for this package.
+## Linking packages
+After running `init`, a new directory called `packages` was created, you need to add your packages to this directory.
 
-### Arguments
-#### {package}
-The package to be linked.
-###### Requires
-* {package} is in syntax of `vendor/package`;
-* {package} is present in vendor;
-* {package} is present in packages.
-
-### Requirements
-* Your current working directory is a composer directory;
-* Your current working directory is a package-dev initialized directory;
-* Read/write permissions in your current working directory;
-* {package} is not already linked.
-
-### Execution
-1. Checks requirements (including arguments);
-2. Triggers `JunctionMake` with {package};
-3. Registers {package} to `package-dev.json`.
-
-
-## Unlink
-
-### Syntax
+If your package is called `devmcc/testing`, you need to add your package in the following folder structure:
 ```
-package-dev unlink {package}
+./packages/devmcc/testing
 ```
 
-### Description
-Unlinks {package} from the PackageDev environment and drops the junction of this package.
-
-
-### Arguments
-#### {package}
-The package to be unlinked.
-###### Requires
-* {package} is in syntax of `vendor/package`;
-* {package} is present in vendor;
-* {package} is present in packages.
-
-### Notes
-* Before you remove a package, you should unlink it.
-
-### Requirements
-* Your current working directory is a composer directory;
-* Your current working directory is a package-dev initialized directory;
-* Read/write permissions in your current working directory;
-* {package} is linked.
-
-### Execution
-1. Checks requirements (including arguments);
-2. Triggers `JunctionDrop` with {package};
-3. Removes {package} from `package-dev.json`.
-
-
-## JunctionMake
-
-### Syntax
+Link your package with the following command:
 ```
-package-dev junction:make {package=linked-packages}
+package-dev link devmcc/testing
 ```
 
-### Description
-Makes a junction for {package}.
-
-### Arguments
-#### {package} (Optional-Default)
-The package to make the junction for.
-###### Default
-linked-packages: All linked packages.
-###### Requires
-* {package} is in syntax of `vendor/package`;
-* {package} is present in vendor;
-* {package} is present in packages.
-
-### Requirements
-* Your current working directory is a composer directory;
-* Your current working directory is a package-dev initialized directory;
-* Read/write permissions in your current working directory;
-* {package} is linked;
-* {package} does not have a junction.
-
-### Execution
-1. Checks requirements (including arguments);
-2. Makes a junction for {package}.
-
-## JunctionDrop
-
-### Syntax
+Unlink your package with the following command:
 ```
-package-dev junction:drop {package=linked-packages}
+package-dev unlink devmcc/testing
 ```
 
-### Description
-Drops a junction for {package}.
+## Using a phar archive
+PackageDev can be run through a phar archive.
+This can be very usefull for when you are using things like Docker containers.
 
-### Arguments
-#### {package} (Optional-Default)
-The package to drop its junction.
-###### Default
-linked-packages: All linked packages.
-###### Requires
-* {package} is in syntax of `vendor/package`;
-* {package} is present in vendor;
-* {package} is present in packages.
+You can create an archive with:
+```
+package-dev phar
+```
 
-### Requirements
-* Your current working directory is a composer directory;
-* Your current working directory is a package-dev initialized directory;
-* Read/write permissions in your current working directory;
-* {package} is linked;
-* {package} has a junction.
+Next, make the following changes to your project's `composer.json` file:
+```diff
+"pre-install-cmd": [
+-    "package-dev symlink-remove"
++    "@php package-dev.phar symlink-remove"
+],
+"pre-update-cmd": [
+-    "package-dev symlink-remove"
++    "@php package-dev.phar symlink-remove"
+],
+"post-install-cmd": [
+-    "package-dev symlink-create"
++    "@php package-dev.phar symlink-create"
+],
+"post-update-cmd": [
+-    "package-dev symlink-create"
++    "@php package-dev.phar symlink-create"
+]
+```
 
-### Execution
-1. Checks requirements (including arguments);
-2. Drops the junction of {package}.
+**NOTE**: In order to be able to create phar archives, you need to add the following to your `php.ini` file:
+```
+phar.readonly = 0
+```
+
+# Testing
+After you have cloned the repo and installed all dependencies you can do the following:
+* Run unit tests with - `vendor/bin/phpunit`
+* Run code analysis with - `vendor/bin/phpstan analyse src tests --level max`
+* Run code coverage analysis with - `vendor/bin/phpunit --coverage-html tmp/code-coverage`
+    * Then open tmp/code-coverage/index.html in your browser
+* Run phpcs with - `vendor/bin/phpcs --standard=PSR12 src tests`
