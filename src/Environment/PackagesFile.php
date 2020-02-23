@@ -33,7 +33,7 @@ class PackagesFile
         }
 
         if (!$this->fileSystem->createFile(Environment::PACKAGES_FILE_PATH)) {
-            throw new UnableToCreatePackagesFile;
+            throw new UnableToCreatePackagesFile();
         }
 
         $this->write([]);
@@ -82,7 +82,7 @@ class PackagesFile
     private function validateInitialization(): void
     {
         if (!$this->isInitialized()) {
-            throw new EnvironmentNotInitialized;
+            throw new EnvironmentNotInitialized();
         }
     }
 
@@ -99,7 +99,7 @@ class PackagesFile
             !$content
             || !$this->fileSystem->writeToFile(Environment::PACKAGES_FILE_PATH, $content)
         ) {
-            throw new UnableToWriteToPackagesFile;
+            throw new UnableToWriteToPackagesFile();
         }
     }
 
@@ -113,7 +113,7 @@ class PackagesFile
         $content = $this->fileSystem->readFromFile(Environment::PACKAGES_FILE_PATH);
 
         if (is_null($content)) {
-            throw new UnableToReadFromPackagesFile;
+            throw new UnableToReadFromPackagesFile();
         }
 
         return json_decode($content, true)[Environment::PACKAGES_KEY];

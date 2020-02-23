@@ -19,7 +19,7 @@ class PackageArgument
     public function __construct(ProcessArguments $processArguments)
     {
         if ($processArguments->argumentWasNotSupplied()) {
-            throw new PackageArgumentWasNotSupplied;
+            throw new PackageArgumentWasNotSupplied();
         }
 
         /** @var string $packageArgument */

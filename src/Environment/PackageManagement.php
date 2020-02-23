@@ -38,7 +38,7 @@ class PackageManagement
     {
         if (!$this->fileSystem->doesDirectoryExist(Environment::PACKAGES_DIRECTORY_PATH)) {
             if (!$this->fileSystem->createDirectory(Environment::PACKAGES_DIRECTORY_PATH)) {
-                throw new UnableToCreatePackagesDirectory;
+                throw new UnableToCreatePackagesDirectory();
             }
         }
     }

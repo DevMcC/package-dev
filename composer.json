@@ -18,7 +18,7 @@
         }
     ],
     "require": {
-        "php": "^7.0"
+        "php": "^7.1"
     },
     "autoload": {
         "psr-4": {
@@ -38,6 +38,7 @@
         "mikey179/vfsstream": "^1.6",
         "phpstan/phpstan": "^0.12.10",
         "phpstan/phpstan-phpunit": "^0.12.6",
-        "phpstan/extension-installer": "^1.0"
+        "phpstan/extension-installer": "^1.0",
+        "squizlabs/php_codesniffer": "*"
     }
 }

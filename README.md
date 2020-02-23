@@ -45,7 +45,7 @@
 * [x] combine FS tests
 * [x] unit test intelephense fix & MockObject|
 * [x] fix CommandHandlerTest
-* [ ] other
+* [x] other
     * [x] phpstan
     * [x] add tests for:
         * [x] NonInjectableParameter
@@ -53,9 +53,9 @@
         * [x] InvalidPackageName null
         * [x] UnableToWriteToPackagesFile false
     * [x] code coverage
-    * [ ] psr-2 testing?
+    * [x] psr-2 testing?
     * [x] integration test? / LATER
-* [ ] complete testing
+* [x] complete testing
 * [x] configure pipeline for github / LATER
 * [ ] finish README
 
@@ -65,3 +65,4 @@ After you have cloned the repo and installed all dependencies you can do the fol
 * Run code analysis with `vendor/bin/phpstan analyse src tests --level max`
 * Run code coverage analysis with `vendor/bin/phpunit --coverage-html tmp/code-coverage`
     * Then open tmp/code-coverage/index.html in your browser
+* Run phpcs with `./vendor/bin/phpcs --standard=PSR12 src tests`

@@ -46,7 +46,7 @@ class CommandHandler
         } catch (Exception $e) {
             $this->outputError($e);
 
-            throw new TerminateCommand;
+            throw new TerminateCommand();
         }
     }
 
@@ -63,7 +63,7 @@ class CommandHandler
     private function getCommand(): Command
     {
         if ($this->processArguments->commandWasNotSupplied()) {
-            throw new CommandWasNotSupplied;
+            throw new CommandWasNotSupplied();
         }
 
         /** @var string $command */

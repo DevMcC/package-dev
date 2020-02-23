@@ -19,7 +19,7 @@ class CommandMappingTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->commandMapping = new CommandMapping;
+        $this->commandMapping = new CommandMapping();
     }
 
     public function testGetMapping(): void

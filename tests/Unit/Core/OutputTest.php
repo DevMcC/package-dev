@@ -12,7 +12,7 @@ class OutputTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->output = new Output;
+        $this->output = new Output();
     }
 
     /**
