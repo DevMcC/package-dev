@@ -1,6 +1,6 @@
 {
     "name": "devmcc/package-dev",
-    "description": "Makes developing composer packages easier.",
+    "description": "A simple tool for developing Composer packages.",
     "keywords": [
         "composer",
         "packages",
