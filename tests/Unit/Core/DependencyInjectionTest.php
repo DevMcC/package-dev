@@ -5,6 +5,8 @@ namespace DevMcC\PackageDev\Test\Unit\Core;
 use DevMcC\PackageDev\CommandArgument\ProcessArguments;
 use DevMcC\PackageDev\Core\DependencyInjection;
 use DevMcC\PackageDev\Environment\RootDirectory;
+use DevMcC\PackageDev\Exception\Core\NonInjectableParameter;
+use DevMcC\PackageDev\Test\Unit\Stub\Core\DependencyInjectionTest\DIStubNonInjectableParameter;
 use DevMcC\PackageDev\Test\Unit\Stub\Core\DependencyInjectionTest\DIStubTreeA;
 use DevMcC\PackageDev\Test\Unit\Stub\Core\DependencyInjectionTest\DIStubTreeAA;
 use DevMcC\PackageDev\Test\Unit\Stub\Core\DependencyInjectionTest\DIStubTreeAAA;
@@ -81,6 +83,18 @@ class DependencyInjectionTest extends TestCase
 
         // Assertion.
         $this->assertTrue($firstResolve === $secondResolve, 'Failed asserting that the same object was resolved.');
+    }
+
+    public function testResolveClassNameWhenNonInjectableParameter(): void
+    {
+        // Assert exception.
+        $this->expectException(NonInjectableParameter::class);
+        $this->expectExceptionMessage(
+            (new NonInjectableParameter(DIStubNonInjectableParameter::class, 'test'))->getMessage()
+        );
+
+        // Starting test.
+        $this->di->resolveClassName(DIStubNonInjectableParameter::class);
     }
 
     /**

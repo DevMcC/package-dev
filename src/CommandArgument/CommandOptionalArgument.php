@@ -9,7 +9,7 @@ use DevMcC\PackageDev\Exception\Command\CommandNotFound;
 class CommandOptionalArgument
 {
     /** @var string|null $command */
-    private $command;
+    private $command = null;
 
     /**
      * @throws CommandNotFound
@@ -22,9 +22,10 @@ class CommandOptionalArgument
             return;
         }
 
+        /** @var string $command */
         $command = $processArguments->argument();
 
-        if ($command && !$commandMapping->commandExists($command)) {
+        if (!$commandMapping->commandExists($command)) {
             throw new CommandNotFound($command);
         }
 

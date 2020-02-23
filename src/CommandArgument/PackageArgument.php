@@ -22,10 +22,11 @@ class PackageArgument
             throw new PackageArgumentWasNotSupplied;
         }
 
+        /** @var string $packageArgument */
         $packageArgument = $processArguments->argument();
 
-        if (!$packageArgument || !preg_match(self::PATTERN_PACKAGE_NAME, $packageArgument)) {
-            throw new InvalidPackageName((string) $packageArgument);
+        if (!preg_match(self::PATTERN_PACKAGE_NAME, $packageArgument)) {
+            throw new InvalidPackageName($packageArgument);
         }
 
         $this->package = $packageArgument;

@@ -47,18 +47,18 @@
 * [x] fix CommandHandlerTest
 * [ ] other
     * [x] phpstan
-    * [ ] add tests for:
-        * [ ] NonInjectableParameter
-        * [ ] CommandNotFound null
-        * [ ] InvalidPackageName null
-        * [ ] UnableToWriteToPackagesFile false
+    * [x] add tests for:
+        * [x] NonInjectableParameter
+        * [x] CommandNotFound null
+        * [x] InvalidPackageName null
+        * [x] UnableToWriteToPackagesFile false
     * [ ] code coverage
     * [ ] integration test?
 * [ ] complete testing
 * [ ] configure pipeline for github
 * [ ] finish README
 
-# Contributing
+# Testing
 After you have cloned the repo and installed all dependencies you can do the following:
 * Run unit tests with `vendor/bin/phpunit`
 * Run code analysis with `vendor/bin/phpstan analyse src tests --level max`

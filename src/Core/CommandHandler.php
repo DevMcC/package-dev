@@ -66,10 +66,11 @@ class CommandHandler
             throw new CommandWasNotSupplied;
         }
 
+        /** @var string $command */
         $command = $this->processArguments->command();
 
-        if (!$command || !$this->commandMapping->commandExists($command)) {
-            throw new CommandNotFound((string) $command);
+        if (!$this->commandMapping->commandExists($command)) {
+            throw new CommandNotFound($command);
         }
 
         $commandClassName = $this->commandMapping->getMapping()[$command];

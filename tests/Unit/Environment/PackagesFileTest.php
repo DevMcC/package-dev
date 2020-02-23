@@ -337,6 +337,47 @@ class PackagesFileTest extends TestCase
         $this->packagesFile->addPackage($stubPackageName);
     }
 
+    /**
+     * The only reason why JSON would be invalid is with a bad package name, but that gets validated by PackageArgument
+     * before it even gets here, so you will probably never have invalid JSON. The check is purely there to satisfy
+     * PHPStan... and this here is to test that satisfactory check. The way this is gonna be tested is to just add a
+     * package that could only be created by Cthulu.
+     */
+    public function testAddPackageWhenUnableToWriteToPackagesFileDueToInvalidJSON(): void
+    {
+        $stubPackageName = mb_convert_encoding('tëst/package', 'Latin1', 'UTF8');
+        $stubPackageFilesContent = json_encode(
+            [Environment::PACKAGES_KEY => ['package/test']],
+            JSON_PRETTY_PRINT
+        );
+
+        // Assertion.
+        $this->fileSystemMock
+            ->expects($this->once())
+            ->method('doesFileExist')
+            ->with(Environment::PACKAGES_FILE_PATH)
+            ->willReturn(true);
+
+        // Assertion.
+        $this->fileSystemMock
+            ->expects($this->once())
+            ->method('readFromFile')
+            ->with(Environment::PACKAGES_FILE_PATH)
+            ->willReturn($stubPackageFilesContent);
+
+        // Assert exception.
+        $this->expectException(UnableToWriteToPackagesFile::class);
+        $this->expectExceptionMessage(
+            (new UnableToWriteToPackagesFile())->getMessage()
+        );
+
+        // Assertion.
+        $this->fileSystemMock->expects($this->never())->method('writeToFile');
+
+        // Starting test.
+        $this->packagesFile->addPackage($stubPackageName);
+    }
+
     public function testRemovePackage(): void
     {
         $stubPackageName = 'test/package';
