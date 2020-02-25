@@ -85,6 +85,10 @@ Next, make the following changes to your project's `composer.json` file:
 phar.readonly = 0
 ```
 
+# Upgrading from version 1
+For anyone who was using version 1, here is how you can upgrade to version 2:
+Unlink all your packages, do the upgrade and link them again
+
 # Testing
 After you have cloned the repo and installed all dependencies you can do the following:
 * Run unit tests with - `vendor/bin/phpunit`
